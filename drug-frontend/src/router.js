@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import MedicineListPage from './Views/MedicineListPage.vue'
 import AccountPage from './Views/AccountPage.vue'
+import Dashboard from "./components/Dashboard.vue"
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ Vue.use(Router)
         path: '/account',
         name: 'Account',
         component: AccountPage
+      },
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: Dashboard
       },
   ]
 })

@@ -19,7 +19,8 @@
 <script>
 import Login from "../components/Login";
 import Register from "../components/Register";
-import axios from "axios";
+import firebase from "firebase";
+//import axios from "axios";
 import Vue from "vue";
 import VueResizeText from "vue-resize-text";
 Vue.use(VueResizeText);
@@ -37,6 +38,19 @@ export default {
   },
   methods: {
     CreateAccount(obj) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(obj.email, obj.wachtwoord)
+        .then(data => {
+          data.user
+            .updateProfile({
+              displayName: obj.gebruikersnaam
+            })
+            .then(() => {});
+        })
+        .catch(err => {
+          this.error = err.message;
+        });/*
       axios({
         method: "post",
         url: "https://i338995core.venus.fhict.nl/account/",
@@ -45,10 +59,20 @@ export default {
           password: obj.wachtwoord,
           email: obj.email,
         },
-      });
+      });*/
     },
     Inloggen(obj) {
-      console.log(obj);
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(obj.email, obj.wachtwoord)
+        
+        .then(data => {
+          this.$router.replace({ name: "dashboard" });
+          console.log(data);
+        })
+        .catch(err => {
+          this.error = err.message;
+        });
     },
   },
 };

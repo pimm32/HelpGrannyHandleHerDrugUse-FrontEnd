@@ -8,14 +8,14 @@
     >
       <b-form-group
         id="input-group-1"
-        label="Gebruikersnaam:"
-        label-for="input-log-gebruikersnaam"
-        description="Voer hier uw gebruikersnaam in"
+        label="email:"
+        label-for="input-log-email"
+        description="Voer hier uw email in"
       >
         <b-form-input
-          id="input-log-gebruikersnaam"
-          v-model="gebruikersnaam"
-          type="text"
+          id="input-log-email"
+          v-model="email"
+          type="email"
           required
           placeholder="MoederNatuur123"
         >
@@ -40,9 +40,9 @@
       <b-button type="reset" variant="danger" class="ml-2">Reset</b-button>
 
       <b-list-group class="mt-5">
-      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.required"> Gebruikersnaam is verplicht! </b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.minLength">Gebruikersnaam moet minimaal {{$v.gebruikersnaam.$params.minLength.min}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.maxLength">Gebruikersnaam mag maximaal {{$v.gebruikersnaam.$params.maxLength.max}} karakters zijn!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.email.required"> Gebruikersnaam is verplicht! </b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.email.minLength">Gebruikersnaam moet minimaal {{$v.gebruikersnaam.$params.minLength.min}} karakters zijn!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.email.maxLength">Gebruikersnaam mag maximaal {{$v.gebruikersnaam.$params.maxLength.max}} karakters zijn!</b-list-group-item>
       <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required">Wachtwoord is verplicht!</b-list-group-item>
       <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength">Wachtwoord moet minimaal {{$v.wachtwoord.$params.minLength.min}} karakters zijn!</b-list-group-item>
       <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength">Wachtwoord mag maximaal {{$v.wachtwoord.$params.maxLength.max}} karakters zijn!</b-list-group-item>
@@ -57,12 +57,12 @@
 <script>
 import Vue from "vue";
 import Vuelidate from "vuelidate";
-import { required, minLength, maxLength } from "vuelidate/lib/validators";
+import { required, minLength, maxLength, email } from "vuelidate/lib/validators";
 Vue.use(Vuelidate);
 export default {
   data() {
     return {
-        gebruikersnaam: "",
+        email: "",
         wachtwoord: "",
       show: true,
       windowWidth2: window.innerWidth,
@@ -71,7 +71,7 @@ export default {
   methods: {
     Inloggen(e) {
       const Acc = {
-        gebruikersnaam: this.gebruikersnaam,
+        email: this.email,
         wachtwoord: this.wachtwoord
       }
       this.$v.$touch()
@@ -85,7 +85,7 @@ export default {
     },
     Reset(e) {
       e.preventDefault();
-      this.account.gebruikersnaam = "";
+      this.account.email = "";
       this.account.wachtwoord = "";
       this.show = false;
       this.$nextTick(() => {
@@ -94,8 +94,9 @@ export default {
     },
   },
   validations: {
-    gebruikersnaam:{
+    email:{
       required,
+      email,
       minLength: minLength(4),
       maxLength: maxLength(24)
     },

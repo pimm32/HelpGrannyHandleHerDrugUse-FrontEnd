@@ -51,7 +51,7 @@ export default {
         method: "delete",
         url: "localhost:44394/medicine",
         data: {
-          id: newMed.id,
+          id: obj.id,
         },
       });
     },
