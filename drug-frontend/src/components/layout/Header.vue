@@ -20,6 +20,7 @@
             <b-nav-item to="/account" v-if="!user.loggedIn" v-resize-text>
               Login/Register</b-nav-item
             >
+            <div v-if="user.loggedIn">{{user.data.displayName}}</div>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>

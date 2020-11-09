@@ -4,7 +4,7 @@
       @submit="Inloggen"
       @reset="Reset"
       v-if="show"
-    :class="[`${windowWidth2 > 800 ? 'special__class2':'normal__class2'}`]"
+      :class="[`${windowWidth2 > 800 ? 'special__class2' : 'normal__class2'}`]"
     >
       <b-form-group
         id="input-group-1"
@@ -19,7 +19,7 @@
           required
           placeholder="MoederNatuur123"
         >
-       </b-form-input>
+        </b-form-input>
       </b-form-group>
       <b-form-group
         id="input-group-2"
@@ -38,32 +38,67 @@
       </b-form-group>
       <b-button type="submit" variant="primary" class="mr-2">Login</b-button>
       <b-button type="reset" variant="danger" class="ml-2">Reset</b-button>
-
+      
+      
       <b-list-group class="mt-5">
-      <b-list-group-item variant="danger" v-if="!$v.email.required"> Gebruikersnaam is verplicht! </b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.email.minLength">Gebruikersnaam moet minimaal {{$v.gebruikersnaam.$params.minLength.min}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.email.maxLength">Gebruikersnaam mag maximaal {{$v.gebruikersnaam.$params.maxLength.max}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required">Wachtwoord is verplicht!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength">Wachtwoord moet minimaal {{$v.wachtwoord.$params.minLength.min}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength">Wachtwoord mag maximaal {{$v.wachtwoord.$params.maxLength.max}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="info" v-if="$v.$invalid"> <kbd>Ongeldige invoer</kbd></b-list-group-item>
-      <b-list-group-item variant="success" v-if="!$v.$invalid"> <kbd>Geldige invoer</kbd></b-list-group-item>
-    </b-list-group>
-
+        <b-list-group-item variant="danger" v-if="!$v.email.required">
+          Gebruikersnaam is verplicht!
+        </b-list-group-item>
+        <b-list-group-item variant="danger" v-if="!$v.email.minLength"
+          >Gebruikersnaam moet minimaal
+          {{ $v.gebruikersnaam.$params.minLength.min }} karakters
+          zijn!</b-list-group-item
+        >
+        <b-list-group-item variant="danger" v-if="!$v.email.maxLength"
+          >Gebruikersnaam mag maximaal
+          {{ $v.gebruikersnaam.$params.maxLength.max }} karakters
+          zijn!</b-list-group-item
+        >
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required"
+          >Wachtwoord is verplicht!</b-list-group-item
+        >
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength"
+          >Wachtwoord moet minimaal
+          {{ $v.wachtwoord.$params.minLength.min }} karakters
+          zijn!</b-list-group-item
+        >
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength"
+          >Wachtwoord mag maximaal
+          {{ $v.wachtwoord.$params.maxLength.max }} karakters
+          zijn!</b-list-group-item
+        >
+        <b-list-group-item variant="info" v-if="$v.$invalid">
+          <kbd>Ongeldige invoer</kbd></b-list-group-item
+        >
+        <b-list-group-item variant="success" v-if="!$v.$invalid">
+          <kbd>Geldige invoer</kbd></b-list-group-item
+        >
+      </b-list-group>
     </b-form>
+    <b-button v-on:click="GoogleLogin" variant="secondary" class="ml-auto mr-auto"
+        >Login with Google</b-button
+      >
+      <b-button v-on:click="FacebookLogin" variant="secondary" class="ml-auto mr-auto"
+        >Login with Facebook</b-button
+      >
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import Vuelidate from "vuelidate";
-import { required, minLength, maxLength, email } from "vuelidate/lib/validators";
+import {
+  required,
+  minLength,
+  maxLength,
+  email,
+} from "vuelidate/lib/validators";
 Vue.use(Vuelidate);
 export default {
   data() {
     return {
-        email: "",
-        wachtwoord: "",
+      email: "",
+      wachtwoord: "",
       show: true,
       windowWidth2: window.innerWidth,
     };
@@ -72,14 +107,13 @@ export default {
     Inloggen(e) {
       const Acc = {
         email: this.email,
-        wachtwoord: this.wachtwoord
-      }
-      this.$v.$touch()
-      if(this.$v.$invalid){
+        wachtwoord: this.wachtwoord,
+      };
+      this.$v.$touch();
+      if (this.$v.$invalid) {
         e.preventDefault();
         alert("Controleer uw gegevens, iets klopt niet");
-      }
-      else{
+      } else {
         this.$emit("log-in", Acc);
       }
     },
@@ -92,40 +126,46 @@ export default {
         this.show = true;
       });
     },
+    GoogleLogin() {
+      this.$emit("google-login");
+    },
+    FacebookLogin(){
+      this.$emit("facebook-login");
+    }
   },
   validations: {
-    email:{
+    email: {
       required,
       email,
       minLength: minLength(4),
-      maxLength: maxLength(24)
+      maxLength: maxLength(24),
     },
-    wachtwoord:{
+    wachtwoord: {
       required,
       minLength: minLength(4),
       maxLength: maxLength(24),
-    }
+    },
   },
- mounted() {
+  mounted() {
     window.onresize = () => {
       this.windowWidth2 = window.innerWidth;
     };
   },
-  updated(){
-     window.onresize = () => {
+  updated() {
+    window.onresize = () => {
       this.windowWidth2 = window.innerWidth;
     };
-  }
+  },
 };
 </script>
 
 <style >
-.special__class2{
-    margin-left: 25%;
-    margin-right: 25%;
+.special__class2 {
+  margin-left: 25%;
+  margin-right: 25%;
 }
-.normal__class2{
-    margin-left: 5%;
-    margin-right: 5%;
+.normal__class2 {
+  margin-left: 5%;
+  margin-right: 5%;
 }
 </style>
