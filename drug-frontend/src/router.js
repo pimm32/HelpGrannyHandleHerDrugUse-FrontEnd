@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import MedicineListPage from './Views/MedicineListPage.vue'
 import AccountPage from './Views/AccountPage.vue'
+import MedicinePage from './Views/MedicinePage.vue'
 import Dashboard from "./components/Dashboard.vue"
-
 Vue.use(Router)
 
 
@@ -29,5 +29,10 @@ Vue.use(Router)
         name: 'dashboard',
         component: Dashboard
       },
+      {
+        path: '/medicineDetail/:id',
+        name: 'MedicineDetail',
+        component: MedicinePage
+      },      
   ]
 })

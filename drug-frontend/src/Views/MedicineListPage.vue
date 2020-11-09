@@ -37,26 +37,32 @@ export default {
   },
   methods: {
     AddNewMed(newMed) {
-      axios({
-        method: "post",
-        url: "localhost:44394/medicine",
-        data: {
-          name: newMed.name,
-          description: newMed.description
-        },
-      });
+      axios
+        .post(
+          "https://i338995core.venus.fhict.nl/Medicine/Add/" +
+            newMed.name +
+            "/" +
+            newMed.description
+        )
+        .then((res) => (this.medicineList = [...this.medicineList, res.data]))
+        .catch((err) => console.log(err));
     },
     DeleteMed(obj) {
-       axios({
-        method: "delete",
-        url: "localhost:44394/medicine",
-        data: {
-          id: obj.id,
-        },
-      });
+      axios
+        .delete("https://i338995core.venus.fhict.nl/Medicine/Delete/" + obj.id)
+
+        .then(
+          // eslint-disable-next-line
+          (res) =>
+            (this.medicineList = this.medicineList.filter(
+              (medicine) => medicine.id !== obj.id
+            ))
+        )
+        .catch((err) => console.log(err));
     },
     InspectMedicine(obj) {
-      console.log("inspect button clicked on: " + obj.id);
+      
+      this.$router.push({ name: 'MedicineDetail', params: { id:obj.id} })
     },
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)
