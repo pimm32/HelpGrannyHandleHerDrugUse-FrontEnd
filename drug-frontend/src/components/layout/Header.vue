@@ -9,17 +9,15 @@
           <b-navbar-nav>
             <b-nav-item to="/" v-resize-text>Home</b-nav-item>
             <b-nav-item to="/medicinelist" v-resize-text>
-              Medicine List</b-nav-item
-            >
+              Medicine List</b-nav-item>
             <b-nav-item to="/#" v-if="user.loggedIn" v-resize-text>
-              My Account</b-nav-item
-            >
-            <b-nav-item v-if="user.loggedIn"
-              ><a @click.prevent="signOut"> Log Out</a></b-nav-item
-            >
+              My Account</b-nav-item>
+            </b-navbar-nav>
+            <b-navbar-nav class="ml-auto">
+            <b-nav-item v-if="user.loggedIn">
+              <a @click.prevent="signOut"> Log Out</a></b-nav-item>
             <b-nav-item to="/account" v-if="!user.loggedIn" v-resize-text>
-              Login/Register</b-nav-item
-            >
+              Login/Register</b-nav-item>
             <div v-if="user.loggedIn">{{user.data.displayName}}</div>
           </b-navbar-nav>
         </b-collapse>
