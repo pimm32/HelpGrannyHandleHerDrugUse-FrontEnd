@@ -75,17 +75,16 @@
         >
       </b-list-group>
     </b-form>
-    <b-container>
     <b-row>
       <b-col cols="5"> </b-col>
       
       <b-col cols="1"> 
-     <img v-on:click="FacebookLogin" src="../../afbeeldingen/facebook.png" width="50%" title="Login with facebook"/>
+     <img v-on:click="FacebookLogin" src="../../afbeeldingen/facebook.png" width="100%" title="Login with facebook"/>
   <label> Login met Facebook</label>
       </b-col>
       
       <b-col cols="1">
-     <img v-on:click="GoogleLogin" src="../../afbeeldingen/google.png" width="50%" title="Login with google"/>
+     <img v-on:click="GoogleLogin" src="../../afbeeldingen/google.png" width="100%" title="Login with google"/>
     <label>Login met Google</label>
       
       </b-col>
@@ -93,7 +92,6 @@
 
 
     </b-row>
-    </b-container>
     
      
   </div>
