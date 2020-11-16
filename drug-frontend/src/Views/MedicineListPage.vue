@@ -15,7 +15,6 @@
 </template>
 
 
-
 <script>
 import MedicineList from "../components/MedicineList";
 import AddNewMedicine from "../components/AddNewMedicine";

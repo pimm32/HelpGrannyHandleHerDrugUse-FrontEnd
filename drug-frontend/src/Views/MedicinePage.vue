@@ -5,7 +5,10 @@
     <b-tabs pills card vertical class="text-left">
       <b-tab title="Waarvoor" ><b-card-text>{{medicine.description}}</b-card-text></b-tab>
       <b-tab title="Wanneer niet te gebruiken"><b-card-text>Tab contents 2</b-card-text></b-tab>
-       <b-tab title="Gebruik"><b-card-text>Tab contents 3</b-card-text></b-tab>
+       <b-tab title="Gebruik"><b-card-text> </b-card-text>
+          <NewMedicineIntake v-on:add-intake="AddIntake"  />
+
+      </b-tab>
       <b-tab title="Mogelijke Bijwerkingen"><b-card-text>Tab contents 3</b-card-text></b-tab>    
       <b-tab title="Hoe bewaar ik dit middel"><b-card-text>Tab contents 3</b-card-text></b-tab>
     <!--  <b-tab title="Notities"><b-card-text>Tab contents 3</b-card-text></b-tab> -->
@@ -17,20 +20,24 @@
 
 <script>
 import axios from "axios";
+import NewMedicineIntake from "../components/NewMedicineIntake";
 
 export default {
     name: "MedicinePage",
+    components: {
+      NewMedicineIntake,
+    },
     data(){
         return {
             id: this.$route.params.id,
-            medicine: {}
-        }
+            medicine: {},        
+      }
     },
     created(){
          axios
       .get("https://i338995core.venus.fhict.nl/Medicine/Get/" + this.id)
       .then((res) => (this.medicine = res.data))
       .catch((err) => console.log(err));
-    }
-}
+    },
+  }
 </script>
