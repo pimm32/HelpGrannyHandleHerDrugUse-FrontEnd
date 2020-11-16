@@ -3,6 +3,6 @@
   <div class="home">
     <h1>Home</h1>
     <p>This is a home page</p>
-    <p>TYFUS PIPELINES</p>
+    <p>TYFUS PeIPELINES</p>
   </div>
 </template>
