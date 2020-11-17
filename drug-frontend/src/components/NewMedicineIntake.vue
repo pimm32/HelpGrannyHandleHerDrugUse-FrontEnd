@@ -9,6 +9,7 @@
       ref="modal"
       title="Inname-moment"
       ok-title="toevoegen"
+      @ok="addIntake"
       cancel-title="annuleren"
       >
     <b-form v-if="show">
@@ -19,7 +20,7 @@
       >
         <b-form-input
           id="input-1"
-          v-model="form.dose"
+          v-model="form.dosage"
           required
           placeholder="Dosering"
         ></b-form-input>
@@ -27,11 +28,11 @@
 
      <div>
     <label for="example-datepicker">Start datum: </label>
-    <b-form-datepicker id="example-datepicker" class="mb-2"></b-form-datepicker>
+    <b-form-datepicker id="example-datepicker" class="mb-2" v-model="form.startDate"></b-form-datepicker>
   </div>
    <div>
      <label for="time">Inneem tijd: </label>
-    <b-form-timepicker id="time" locale="nl"></b-form-timepicker>
+    <b-form-timepicker id="time" locale="nl" v-model="form.time"></b-form-timepicker>
 
   </div>
 
@@ -68,13 +69,24 @@
           showNewIntake: false, 
         form: {
           frequency: null,
+          dosage: null,
           checked: []
         },
         frequency: [{ text: 'Dagelijks', value: 0 }, { text: 'Wekelijks', value: 1 }, { text: 'Zelf instellen', value: 2 }],
         show: true
       }
     },
-    
+    methods:{
+    addIntake() {
+      
+      const NEWINTAKE = {
+        frequency: this.form.frequency,
+        dosage: this.form.dosage,
+        startDate: this.form.startDate,
+        time: this.form.time
+      };
+      this.$emit("add-intakemoment", NEWINTAKE);
+    },
     ToggleNMS() {
       this.showNewIntake = !this.showNewIntake;
       },
@@ -87,5 +99,5 @@
         
       }
     }
-  
+  }
 </script>

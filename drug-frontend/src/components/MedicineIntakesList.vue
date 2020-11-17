@@ -4,7 +4,7 @@
       <h2 class="card-header">Inneem momenten</h2>
     <b-table fixed responsive="true" striped hover :items="intakeList" :fields=fields>
       <template v-slot:cell(info)="row">
-         <b-button size="sm" variant="info" @click="info(row.item, $event.target)" class="btn btn-primary">
+         <b-button size="sm" variant="info" @click="edit(row.item, $event.target)" class="btn btn-primary">
            Aanpassen           
         </b-button>
       </template>
@@ -34,9 +34,8 @@ export default {
   data(){
     return{
       fields:[
-        {key: "name", label: "Medicijn"},
         {key: "dose", label: "Dosering"},
-        {key: "date", label: "Datum"},
+        {key: "frequency", label: "Herhaling"},
         {key: "time", label: "Tijd"},
         {key: "edit", label: "Aanpassen"},
         {key: "delete", label: "Verwijderen"}
@@ -45,15 +44,15 @@ export default {
     }
   },
   methods:{
-    info: function(obj){
+    edit: function(obj){
       this.$emit("edit-intake", obj)
     },
-    deleteMed: function(obj){
-      this.$emit("del-intake", obj);
+    deleteIntake: function(obj){
+      this.$emit("delete-intakemoment", obj);
     },
     showMsgBoxTwo: function(obj) {
         this.boxTwo = ''
-        this.$bvModal.msgBoxConfirm('Weet u zeker dat u: ' + obj.name + ' uit uw medicijnlijst wilt verwijderen?', {
+        this.$bvModal.msgBoxConfirm('Weet u zeker dat u dit inneem moment wilt verwijderen?', {
           title: 'Bevestiging',
           size: 'sm',
           buttonSize: 'sm',
@@ -68,7 +67,7 @@ export default {
           .then(value => {
             this.boxTwo = value
             if (value == true) {
-              this.deleteMed(obj)
+              this.deleteIntake(obj)
             }
           })
           .catch(err=>console.log(err))
