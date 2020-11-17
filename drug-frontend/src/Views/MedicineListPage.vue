@@ -37,29 +37,26 @@ export default {
   },
   methods: {
     AddNewMed(newMed) {
-      axios
-        .post(
-          "https://i338995core.venus.fhict.nl/Medicine/Add/" +
-            newMed.name +
-            "/" +
-            newMed.description
-        )
-        .then((res) => (this.medicineList = [...this.medicineList, res.data]))
-        .catch((err) => console.log(err));
+      axios({
+        method: 'post',
+        url: 'https://localhost:44394/Medicine/Add/',
+        data: {
+          name: newMed.name,
+          description: newMed.description
+        }
+      })
+      .then((res) => (this.medicineList = [...this.medicineList, res.data]))
     },
     DeleteMed(obj) {
-      axios
-        .delete("https://i338995core.venus.fhict.nl/Medicine/Delete/" + obj.id)
-
-        .then(
-          // eslint-disable-next-line
-          (res) =>
-            (this.medicineList = this.medicineList.filter(
-              (medicine) => medicine.id !== obj.id
-            ))
-        )
-        .catch((err) => console.log(err));
-    },
+      axios({
+        method: 'delete',
+        url: 'https://localhost:44394/Medicine/Delete/',
+        data: {
+          id: obj.id,
+        }
+      })
+      },
+      
     InspectMedicine(obj) {
       
       this.$router.push({ name: 'MedicineDetail', params: { id:obj.id} })
@@ -67,17 +64,21 @@ export default {
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)
   created() {
-    axios
-      .get("https://i338995core.venus.fhict.nl/Medicine/GetAll")
-      .then((res) => (this.medicineList = res.data))
-      .catch((err) => console.log(err));
+    axios({
+      method: 'get', 
+      url: 'https://localhost:44394/Medicine/GetAll',
+    })
+    .then((res) => this.medicineList = res.data)
+    .catch((err) => console.log(err))
   },
   updated() {
-    axios
-      .get("https://i338995core.venus.fhict.nl/Medicine/GetAll")
-      .then((res) => (this.medicineList = res.data))
-      .catch((err) => console.log(err));
-  },
+    axios({
+      method: 'get', 
+      url: 'https://localhost:44394/Medicine/GetAll',
+    })
+    .then((res) => this.medicineList = res.data)
+    .catch((err) => console.log(err))
+  }
 };
 </script>
 
