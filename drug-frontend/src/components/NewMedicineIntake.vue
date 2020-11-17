@@ -11,7 +11,7 @@
       ok-title="toevoegen"
       cancel-title="annuleren"
       >
-    <b-form @reset="onReset" v-if="show">
+    <b-form v-if="show">
            <b-form inline>
       <b-form-group
         id="input-group-1"
@@ -88,13 +88,15 @@
     },
     
     ToggleNMS() {
-      this.showNewIntake = !this.showNewIntake;},
+      this.showNewIntake = !this.showNewIntake;
+      },
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
         this.form.dose = ''
         this.form.frequency = null
         this.form.checked = []
+        
       }
     }
   
