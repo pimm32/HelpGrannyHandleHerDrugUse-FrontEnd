@@ -3,7 +3,7 @@
   <div class="home">
     <h1>Home</h1>
     <p>This is a home page</p>
-    <p>HET WERKT!!!!!!!</p>
+    <p>hello from pipeline</p>
   </div>
 </template>
 
