@@ -3,6 +3,12 @@
   <div class="home">
     <h1>Home</h1>
     <p>This is a home page</p>
-    <p>TYFUS PeIPELINES</p>
+    <p>HET WERKT!!!!!!</p>
   </div>
 </template>
+
+<script>
+export default {
+
+}
+</script>
