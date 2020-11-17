@@ -7,7 +7,11 @@
       <b-tab title="Wanneer niet te gebruiken"><b-card-text>Tab contents 2</b-card-text></b-tab>
        <b-tab title="Gebruik"><b-card-text> </b-card-text>
           <NewMedicineIntake v-on:add-intake="AddIntake"  />
-
+          <IntakeList
+          v-bind:intakeList="intakeList"
+          v-on:inspect-medicine="InspectMedicine"
+          v-on:del-medicine="DeleteMed"
+          />
       </b-tab>
       <b-tab title="Mogelijke Bijwerkingen"><b-card-text>Tab contents 3</b-card-text></b-tab>    
       <b-tab title="Hoe bewaar ik dit middel"><b-card-text>Tab contents 3</b-card-text></b-tab>
@@ -21,14 +25,16 @@
 <script>
 import axios from "axios";
 import NewMedicineIntake from "../components/NewMedicineIntake";
-
+import IntakeList from "../components/MedicineIntakesList"
 export default {
     name: "MedicinePage",
     components: {
       NewMedicineIntake,
+      IntakeList,
     },
     data(){
         return {
+          intakeList:[],
             id: this.$route.params.id,
             medicine: {},        
       }

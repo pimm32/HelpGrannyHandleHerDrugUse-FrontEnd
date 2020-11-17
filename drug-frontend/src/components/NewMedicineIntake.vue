@@ -12,7 +12,6 @@
       cancel-title="annuleren"
       >
     <b-form v-if="show">
-           <b-form inline>
       <b-form-group
         id="input-group-1"
         label="Dosering:"
@@ -25,15 +24,7 @@
           placeholder="Dosering"
         ></b-form-input>
       </b-form-group>
-    <b-form-group id="input-group-6" label="Type:" label-for="input-6">
-        <b-form-select
-          id="input-3"
-          v-model="form.typeMed"
-          :options="typeMed"
-          required
-        ></b-form-select>
-      </b-form-group>
-           </b-form> 
+
      <div>
     <label for="example-datepicker">Start datum: </label>
     <b-form-datepicker id="example-datepicker" class="mb-2"></b-form-datepicker>
@@ -64,7 +55,6 @@
           <b-form-checkbox value="6">Zondag</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
-      <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
     </b-modal>
   </div>
@@ -78,11 +68,9 @@
           showNewIntake: false, 
         form: {
           frequency: null,
-          typeMed: null,
           checked: []
         },
         frequency: [{ text: 'Dagelijks', value: 0 }, { text: 'Wekelijks', value: 1 }, { text: 'Zelf instellen', value: 2 }],
-        typeMed: [{ text: 'Pil', value: 0 }, { text: 'mL', value: 1 }, { text: 'mG', value: 2 }],
         show: true
       }
     },
