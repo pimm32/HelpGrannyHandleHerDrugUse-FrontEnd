@@ -43,6 +43,11 @@ export default {
       .get("https://i338995core.venus.fhict.nl/Medicine/Get/" + this.id)
       .then((res) => (this.medicine = res.data))
       .catch((err) => console.log(err));
+
+      axios
+      .get("https://i338995core.venus.fhict.nl/IntakeMoment/GetAll/" + this.id)
+      .then((res) => (this.intakeList = res.data))
+      .catch((err) => console.log(err));
     },
   updated(){
     axios({

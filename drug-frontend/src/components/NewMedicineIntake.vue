@@ -88,8 +88,7 @@
            this.personalised = false;
          }
        },
-    addIntake() {
-      
+    addIntake() {    
       const NEWINTAKE = {
         frequency: this.form.frequency,
         dosage: this.form.dosage,
