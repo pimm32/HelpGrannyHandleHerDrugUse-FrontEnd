@@ -90,7 +90,6 @@ export default {
         description: this.description,
       };
 
-
       this.$v.$touch()
       if (this.$v.$invalid) {
         e.preventDefault();
