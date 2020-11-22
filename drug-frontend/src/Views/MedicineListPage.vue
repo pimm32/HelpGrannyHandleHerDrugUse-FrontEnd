@@ -36,13 +36,14 @@ export default {
   },
   methods: {
     AddNewMed(newMed) {
-      axios
-        .post(
-          "https://i338995core.venus.fhict.nl/Medicine/Add/" +
-            newMed.name +
-            "/" +
-            newMed.description
-        )
+      axios({
+        method: "post",
+        url: "https://i338995core.venus.fhict.nl/Medicine",
+        data: {
+          name: newMed.name,
+          description: newMed.description
+        }
+      })
         .then((res) => (this.medicineList = [...this.medicineList, res.data]))
         .catch((err) => console.log(err));
     },
@@ -67,7 +68,7 @@ export default {
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)
   created() {
     axios
-      .get("https://i338995core.venus.fhict.nl/Medicine/GetAll")
+      .get("https://i338995core.venus.fhict.nl/Medicine")
       .then((res) => (this.medicineList = res.data))
       .catch((err) => console.log(err));
   },
