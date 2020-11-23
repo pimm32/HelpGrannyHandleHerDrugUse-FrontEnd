@@ -76,19 +76,19 @@
       </b-list-group>
     </b-form>
     <b-row>
-      <b-col cols="5"> </b-col>
       
-      <b-col cols="1"> 
-     <img v-on:click="FacebookLogin" src="../../afbeeldingen/facebook.png" width="100%" title="Login with facebook"/>
-  <label> Login met Facebook</label>
+      <b-col cols="6"> 
+     <img v-on:click="FacebookLogin" src="../../afbeeldingen/facebook.png" style="margin-left: 50%" class="logo" title="Login with facebook"/>
+  <br/>
+  <v-label style="margin-left: 50%"> Login met Facebook</v-label>
       </b-col>
       
-      <b-col cols="1">
-     <img v-on:click="GoogleLogin" src="../../afbeeldingen/google.png" width="100%" title="Login with google"/>
-    <label>Login met Google</label>
+      <b-col cols="6">
+     <img v-on:click="GoogleLogin" src="../../afbeeldingen/google.png"  style="margin-right: 50%" class="logo" title="Login with google"/>
+     <br/>
+    <v-label  style="margin-right: 50%">Login met Google</v-label>
       
       </b-col>
-      <b-col cols="5"/>
 
 
     </b-row>
@@ -180,5 +180,11 @@ export default {
 .normal__class2 {
   margin-left: 5%;
   margin-right: 5%;
+}
+.logo{
+  width: 20%;
+  min-width: 5rem;
+  max-width: 10rem;
+  margin:5%;
 }
 </style>
