@@ -41,28 +41,28 @@
       
       
       <b-list-group class="mt-5">
-        <b-list-group-item variant="danger" v-if="!$v.email.required">
+        <b-list-group-item variant="danger" v-if="!$v.email.required && showError">
           Gebruikersnaam is verplicht!
         </b-list-group-item>
-        <b-list-group-item variant="danger" v-if="!$v.email.minLength"
+        <b-list-group-item variant="danger" v-if="!$v.email.minLength && showError"
           >Gebruikersnaam moet minimaal
           {{ $v.gebruikersnaam.$params.minLength.min }} karakters
           zijn!</b-list-group-item
         >
-        <b-list-group-item variant="danger" v-if="!$v.email.maxLength"
+        <b-list-group-item variant="danger" v-if="!$v.email.maxLength && showError"
           >Gebruikersnaam mag maximaal
           {{ $v.gebruikersnaam.$params.maxLength.max }} karakters
           zijn!</b-list-group-item
         >
-        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required"
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required && showError"
           >Wachtwoord is verplicht!</b-list-group-item
         >
-        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength"
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength && showError"
           >Wachtwoord moet minimaal
           {{ $v.wachtwoord.$params.minLength.min }} karakters
           zijn!</b-list-group-item
         >
-        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength"
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength && showError"
           >Wachtwoord mag maximaal
           {{ $v.wachtwoord.$params.maxLength.max }} karakters
           zijn!</b-list-group-item
@@ -126,6 +126,7 @@ export default {
       if (this.$v.$invalid) {
         e.preventDefault();
         alert("Controleer uw gegevens, iets klopt niet");
+        this.showError = true;
       } else {
         this.$emit("log-in", Acc);
       }
@@ -135,6 +136,7 @@ export default {
       this.account.email = "";
       this.account.wachtwoord = "";
       this.show = false;
+      this.showError = false;
       this.$nextTick(() => {
         this.show = true;
       });
