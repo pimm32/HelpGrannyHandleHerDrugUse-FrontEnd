@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    
-    <AddNewMedicine v-on:add-medicine="AddNewMed"  />
-    <div class="container mt-5" >
+    <AddNewMedicine v-on:add-medicine="AddNewMed" />
+    <div class="container mt-5">
       <div class="card mt-5">
         <MedicineList
           v-bind:medicineList="medicineList"
@@ -13,7 +12,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import MedicineList from "../components/MedicineList";
@@ -37,47 +35,35 @@ export default {
   methods: {
     AddNewMed(newMed) {
       axios({
-        method: 'post',
-        url: 'https://localhost:44394/Medicine/Add/',
+        method: "post",
+        url: "https://localhost:44394/Medicine/",
         data: {
           name: newMed.name,
-          description: newMed.description
-        }
-      })
-      .then((res) => (this.medicineList = [...this.medicineList, res.data]))
+          description: newMed.description,
+        },
+      }).then((res) => (this.medicineList = [...this.medicineList, res.data]));
     },
     DeleteMed(obj) {
-      axios({
-        method: 'delete',
-        url: 'https://localhost:44394/Medicine/Delete/',
-        data: {
-          id: obj.id,
-        }
-      })
-      },
-      
+      axios.delete("https://localhost:44394/Medicine/" + obj.id);
+    },
+
     InspectMedicine(obj) {
-      
-      this.$router.push({ name: 'MedicineDetail', params: { id:obj.id} })
+      this.$router.push({ name: "MedicineDetail", params: { id: obj.id } });
     },
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)
   created() {
-    axios({
-      method: 'get', 
-      url: 'https://localhost:44394/Medicine/GetAll',
-    })
-    .then((res) => this.medicineList = res.data)
-    .catch((err) => console.log(err))
+    axios
+      .get("https://localhost:44394/Medicine/")
+      .then((res) => (this.medicineList = res.data))
+      .catch((err) => console.log(err));
   },
   updated() {
-    axios({
-      method: 'get', 
-      url: 'https://localhost:44394/Medicine/GetAll',
-    })
-    .then((res) => this.medicineList = res.data)
-    .catch((err) => console.log(err))
-  }
+    axios
+      .get("https://localhost:44394/Medicine/")
+      .then((res) => (this.medicineList = res.data))
+      .catch((err) => console.log(err));
+  },
 };
 </script>
 
