@@ -13,6 +13,7 @@
       ok-title="toevoegen"
       @ok="addMedicine"
       cancel-title="annuleren"
+      @cancel="ResetModal"
     >
       <form ref="form" @submit="addMedicine">
         <b-form-group
@@ -25,8 +26,8 @@
             v-model.trim="name"
             required
           ></b-form-input>
-          <div class="error" v-if="!$v.name.required">Naam is verplicht!</div>
-          <div class="error" v-if="!$v.name.minLength">
+          <div class="error" v-if="!$v.name.required && showError">Naam is verplicht!</div>
+          <div class="error" v-if="!$v.name.minLength && showError">
             De naam van het medicijn moet minimaal {{ $v.name.$params.minLength.min }} karakters zijn!.
           </div>
         </b-form-group>
@@ -40,8 +41,8 @@
             v-model="description"
             required
           ></b-form-input>
-          <div class="error" v-if="!$v.description.required">Beschrijving is verplicht!</div>
-          <div class="error" v-if="!$v.description.maxLength">
+          <div class="error" v-if="!$v.description.required && showError">Beschrijving is verplicht!</div>
+          <div class="error" v-if="!$v.description.maxLength && showError">
             De beschrijving mag uit maximaal {{ $v.description.$params.maxLength.max }} karakters bestaan!
           </div>
           
@@ -65,7 +66,7 @@ export default {
       id: 10,
       name: "",
       description: "",
-
+      showError: false,
       showNewMed: false,
     };
   },
@@ -93,7 +94,8 @@ export default {
       this.$v.$touch()
       if (this.$v.$invalid) {
         e.preventDefault();
-        alert("Vul de juiste waarden in voor het nieuwe medicijn!")
+        alert("Vul de juiste waarden in voor het nieuwe medicijn!");
+        this.showError = true;
       } else {
               this.$emit("add-medicine", newMed);
       }
@@ -105,6 +107,7 @@ export default {
     ResetModal() {
       this.name = "";
       this.description = "";
+      this.showError = false;
     },
   },
   validations: {
