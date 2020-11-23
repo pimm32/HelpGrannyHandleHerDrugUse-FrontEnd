@@ -113,6 +113,7 @@ export default {
       email: "",
       wachtwoord: "",
       show: true,
+      showError: false,
       windowWidth2: window.innerWidth,
     };
   },
