@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import MedicineListPage from './Views/MedicineListPage.vue'
 import AccountPage from './Views/AccountPage.vue'
 import MedicinePage from './Views/MedicinePage.vue'
+import IntakeMomentsListPage from './Views/IntakeMomentsListPage.vue'
 import Dashboard from "./components/Dashboard.vue"
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ Vue.use(Router)
         path: '/medicinelist',
         name: 'MedicineList',
         component: MedicineListPage
+      },
+      {
+        path: '/intakelist',
+        name: 'intakelist',
+        component: IntakeMomentsListPage
       },
       {
         path: '/account',

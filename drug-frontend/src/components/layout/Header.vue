@@ -8,17 +8,26 @@
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
             <b-nav-item to="/" v-resize-text>Home</b-nav-item>
-            <b-nav-item to="/medicinelist" v-resize-text>
-              Medicine List</b-nav-item>
-            <b-nav-item to="/#" v-if="user.loggedIn" v-resize-text>
-              My Account</b-nav-item>
+            
+            <b-nav-item-dropdown to="/#" v-if="user.loggedIn" v-resize-text>
+              <template #button-content>
+                My Medicines
+              </template>
+              <b-dropdown-item to="/medicinelist">Medicinelist</b-dropdown-item>
+              <b-dropdown-item to="/intakelist">intakeMoments</b-dropdown-item>
+            </b-nav-item-dropdown>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
-            <b-nav-item v-if="user.loggedIn">
-              <a @click.prevent="signOut"> Log Out</a></b-nav-item>
-            <b-nav-item to="/account" v-if="!user.loggedIn" v-resize-text>
-              Login/Register</b-nav-item>
-            <div v-if="user.loggedIn">{{user.data.displayName}}</div>
+            <b-nav-item-dropdown to="/#" v-resize-text>
+            <template #button-content>
+              <em>My Account</em>
+            </template>
+              <b-dropdown-item v-if="user.loggedIn"><a @click.prevent="signOut"> Log Out</a></b-dropdown-item>
+              <b-dropdown-item v-else to="/account">Login/Register</b-dropdown-item>
+
+
+            </b-nav-item-dropdown>
+            
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>

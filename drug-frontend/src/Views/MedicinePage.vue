@@ -13,7 +13,7 @@
           ><b-card-text> </b-card-text>
           <NewMedicineIntake v-on:add-intakemoment="addIntakemoment" />
           <IntakeList
-            v-bind:intakeList="medicine.intakeMoments"
+            v-bind:intakeList="intakeMoments"
             v-on:edit-intakemoment="UpdateIntakemoment"
             v-on:delete-intakemoment="DeleteIntakemoment"
           />
@@ -42,35 +42,29 @@ export default {
   },
   data() {
     return {
-      id: this.$route.params.id,
-      medicine: {},
+      medicine:this.$route.params.medicine,
+      intakeMoments: [],
     };
   },
   created() {
     axios
-      .get("https://localhost:44394/Medicine/" + this.id)
+      .get("https://i338995core.venus.fhict.nl/Medicine/" + this.medicine.id)
       .then((res) => (this.medicine = res.data))
       .catch((err) => console.log(err));
-  },
-  updated() {
-    axios({
-      method: "get",
-      url: "https://localhost:44394/Medicine/",
-      data: {
-        id: this.id,
-      },
-    })
-      .then((res) => (this.medicine = res.data))
-      .catch((err) => console.log(err));
+
+    axios
+      .get("https://i338995core.venus.fhict.nl/IntakeMoment/GetAllByMedicineId/" + this.medicine.id)
+      .then((res) => (this.intakeMoments = res.data))
+      .catch((err) => (console.log(err)));
   },
   methods: {
     addIntakemoment(obj) {
       console.log(obj);
       axios({
         method: "post",
-        url: "https://localhost:44394/intakemoment",
+        url: "https://i338995core.venus.fhict.nl/intakemoment",
         data: {
-          medId: this.id,
+          medId: this.medicine.id,
           id: obj.id,
           frequency: obj.frequency,
           dosage: obj.dosage,
@@ -91,7 +85,7 @@ export default {
     DeleteIntakemoment(obj) {
       axios({
         method: "delete",
-        url: "https://localhost:44394/intakemoment",
+        url: "https://i338995core.venus.fhict.nl/intakemoment",
         data: {
           id: obj.id,
         },
@@ -100,7 +94,7 @@ export default {
     UpdateIntakemoment(obj) {
       axios({
         method: "put",
-        url: "https://localhost:44394/intakemoment",
+        url: "https://i338995core.venus.fhict.nl/intakemoment",
         data: {
           medId: this.id,
           id: obj.id,

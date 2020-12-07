@@ -80,13 +80,13 @@
       <b-col cols="6"> 
      <img v-on:click="FacebookLogin" src="../../afbeeldingen/facebook.png" style="margin-left: 50%" class="logo" title="Login with facebook"/>
   <br/>
-  <v-label style="margin-left: 50%"> Login met Facebook</v-label>
+  <label style="margin-left: 50%"> Login met Facebook</label>
       </b-col>
       
       <b-col cols="6">
      <img v-on:click="GoogleLogin" src="../../afbeeldingen/google.png"  style="margin-right: 50%" class="logo" title="Login with google"/>
      <br/>
-    <v-label  style="margin-right: 50%">Login met Google</v-label>
+    <label  style="margin-right: 50%">Login met Google</label>
       
       </b-col>
 
