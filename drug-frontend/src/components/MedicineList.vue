@@ -47,6 +47,7 @@ export default {
   methods:{
     info: function(obj){
       this.$emit("inspect-medicine", obj)
+      console.log(obj.id)
     },
     deleteMed: function(obj){
       this.$emit("del-medicine", obj);
