@@ -13,18 +13,38 @@
       cancel-title="annuleren"
       >
     <b-form v-if="show">
-      <b-form-group
-        id="input-group-1"
-        label="Dosering:"
-        label-for="input-1"
-      >
-        <b-form-input
-          id="input-1"
-          v-model="form.dosage"
-          required
-          placeholder="Dosering"
-        ></b-form-input>
-      </b-form-group>
+      <b-row>
+          <b-col cols="6">
+            <b-form-group
+              id="input-group-1"
+              label="Hoeveelheid:"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                type="number"
+                v-model="form.dosage"
+                required
+                placeholder="Hoeveelheid"
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col cols="6">
+            <b-form-group
+              id="input-group-1"
+              label="Doserings vorm:"
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                type="text"
+                v-model="form.dosageForm"
+                required
+                placeholder="Doserings vorm"
+              ></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
 
      <div>
     <label for="example-datepicker">Start datum: </label>
@@ -72,6 +92,8 @@
         form: {
           frequency: null,
           dosage: null,
+        dosageForm: null,
+
           checked: []
         },
         frequencies: [{ text: 'Dagelijks', value: 0 }, { text: 'Wekelijks', value: 1 }, { text: 'Zelf instellen', value: 2 }],
@@ -92,6 +114,7 @@
       const NEWINTAKE = {
         frequency: this.form.frequency,
         dosage: this.form.dosage,
+        dosageForm: this.form.dosageForm,
         startDate: this.form.startDate,
         time: this.form.time
       };

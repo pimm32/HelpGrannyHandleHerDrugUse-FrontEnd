@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <AddNewMedicine v-on:add-medicine="AddNewMed" />
+    <AddNewMedicine  v-on:add-medicine="AddNewMed" />
     <div class="container mt-5">
       <div class="card mt-5">
         <MedicineList
+        ref="medList"
           v-bind:medicineList="medicineList"
           v-on:inspect-medicine="InspectMedicine"
           v-on:del-medicine="DeleteMed"
@@ -30,6 +31,7 @@ export default {
   },
   data() {
     return {
+      rendered: true,
       medicineList: [],
     };
   },
@@ -41,6 +43,7 @@ export default {
   },
   methods: {
     AddNewMed(newMed) {
+      var that = this;
       console.log(this.user.data.uid);
       axios({
         method: "post",
@@ -50,10 +53,20 @@ export default {
           description: newMed.description,
           UID : this.user.data.uid, 
         },
-      }).then((res) => (this.medicineList = [...this.medicineList, res.data]));
+      }).then((res) => (that.medicineList, [...that.medicineList, res.data]));
+      this.$refs[0].$refs.table.refresh();
+      
     },
     DeleteMed(obj) {
-      axios.delete("https://i338995core.venus.fhict.nl/Medicine/" + obj.id);
+      axios({
+        method: "delete",
+        url: "https://i338995core.venus.fhict.nl/Medicine/" + obj.id,
+      });
+    },
+
+    ForceRender: function(){
+      this.rendered = false;
+      this.$nextTick(()=>{this.rendered = true;})
     },
 
     InspectMedicine(obj) {
@@ -63,17 +76,13 @@ export default {
     },
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)
-  created() {
+  mounted() {
     axios
       .get("https://i338995core.venus.fhict.nl/Medicine/GetAllByAccountId/" + this.user.data.uid)
       .then((res) => (this.medicineList = res.data))
       .catch((err) => console.log(err));
   },
-  updated(){
-        axios.get("https://i338995core.venus.fhict.nl/Medicine/GetAllByAccountId/" + this.user.data.uid)
-      .then((res) => (this.medicineList = res.data))
-      .catch((err) => console.log(err));
-  },
+  
 };
 </script>
 

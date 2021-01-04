@@ -11,19 +11,19 @@
             
             <b-nav-item-dropdown to="/#" v-if="user.loggedIn" v-resize-text>
               <template #button-content>
-                My Medicines
+                Mijn medicijnen
               </template>
-              <b-dropdown-item to="/medicinelist">Medicinelist</b-dropdown-item>
-              <b-dropdown-item to="/intakelist">intakeMoments</b-dropdown-item>
+              <b-dropdown-item to="/medicinelist">Medicijnen lijst</b-dropdown-item>
+              <b-dropdown-item to="/intakelist">Inname momenten</b-dropdown-item>
             </b-nav-item-dropdown>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown to="/#" v-resize-text>
             <template #button-content>
-              <em>My Account</em>
+              <em>Mijn Account</em>
             </template>
-              <b-dropdown-item v-if="user.loggedIn"><a @click.prevent="signOut"> Log Out</a></b-dropdown-item>
-              <b-dropdown-item v-else to="/account">Login/Register</b-dropdown-item>
+              <b-dropdown-item v-if="user.loggedIn"><a @click.prevent="signOut"> Uitloggen</a></b-dropdown-item>
+              <b-dropdown-item v-else to="/account">Inloggen/Registreren</b-dropdown-item>
 
 
             </b-nav-item-dropdown>
@@ -55,9 +55,10 @@ export default {
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: "home",
+            name: "Home",
           });
         });
+        location.reload();
     },
   },
 };

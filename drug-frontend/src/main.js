@@ -27,7 +27,9 @@ const CONFIGOPSTIONS = {
 firebase.initializeApp(CONFIGOPSTIONS);
 
 firebase.auth().onAuthStateChanged(user => {
+  if(user){
   store.dispatch("fetchUser", user);
+  }
 });
 
 new Vue({

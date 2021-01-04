@@ -9,7 +9,7 @@
       <b-tab title="Inloggen">
         <Login v-on:log-in="Inloggen" v-on:google-login="InloggenMetGoogle" v-on:facebook-login="InloggenMetFacebook"/>
       </b-tab>
-      <b-tab title="Registeren">
+      <b-tab title="Registreren">
         <Register v-on:reg-acc="CreateAccount" />
       </b-tab>
     </b-tabs>

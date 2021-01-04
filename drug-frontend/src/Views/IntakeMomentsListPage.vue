@@ -40,17 +40,40 @@ export default {
     VerifyIntake(obj){
       axios(
         {
-          method:"put",
-          url: "",
-          data: {
-            intakeId: obj.id,
-            verified: true,
-          }
+          method: "delete",
+        url: "https://i338995core.venus.fhict.nl/intakemoment",
+        data: {
+          id: obj.id,
+        },
         }
       )
     },
     AddWeeklyIntake(obj){
-      console.log(obj)
+      var newDate = new Date(obj.startDate);
+      newDate.setDate(newDate.getDate() + 7 );
+      let day = newDate.getDay();
+      if(day.toString().length == 1){
+        let day2 = "0" + day.toString();
+        day = day2;
+      }
+      console.log(newDate);
+      console.log(newDate.getFullYear() + ":" + (newDate.getMonth()+1) + ":" +newDate.getDate());
+      console.log(day);
+      console.log(newDate.getHours() + ":" + newDate.getMinutes() + ":" + newDate.getSeconds());
+      
+      axios({
+        method: "post",
+        url: "https://i338995core.venus.fhict.nl/intakemoment",
+        data: {
+          medId: obj.medicineId,
+          id: obj.id,
+          frequency: obj.frequency,
+          dosage: obj.dosage,
+          startDate: (newDate.getFullYear() + "-" + (newDate.getMonth()+1) + "-" +newDate.getDate()),
+          time: (newDate.getHours() + ":" + newDate.getMinutes() + ":" + newDate.getSeconds()),
+          days: obj.days,
+        },
+      })
     },
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)

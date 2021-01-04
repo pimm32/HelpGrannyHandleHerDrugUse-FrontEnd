@@ -6,10 +6,8 @@
         <b-tab title="Waarvoor"
           ><b-card-text>{{ medicine.description }}</b-card-text></b-tab
         >
-        <b-tab title="Wanneer niet te gebruiken"
-          ><b-card-text>Tab contents 2</b-card-text></b-tab
-        >
-        <b-tab title="Gebruik"
+       
+        <b-tab title="Inname momenten"
           ><b-card-text> </b-card-text>
           <NewMedicineIntake v-on:add-intakemoment="addIntakemoment" />
           <IntakeList
@@ -19,11 +17,10 @@
           />
         </b-tab>
         <b-tab title="Mogelijke Bijwerkingen"
-          ><b-card-text>Tab contents 3</b-card-text></b-tab
+          ><Sideeffects  v-bind:medicine="this.medicine" />
+          </b-tab
         >
-        <b-tab title="Hoe bewaar ik dit middel"
-          ><b-card-text>Tab contents 3</b-card-text></b-tab
-        >
+        
         <!--  <b-tab title="Notities"><b-card-text>Tab contents 3</b-card-text></b-tab> -->
       </b-tabs>
     </b-card>
@@ -34,11 +31,13 @@
 import axios from "axios";
 import NewMedicineIntake from "../components/NewMedicineIntake";
 import IntakeList from "../components/MedicineIntakesList";
+import Sideeffects from '../components/Sideeffects.vue';
 export default {
   name: "MedicinePage",
   components: {
     NewMedicineIntake,
     IntakeList,
+    Sideeffects,
   },
   data() {
     return {
@@ -65,9 +64,8 @@ export default {
         url: "https://i338995core.venus.fhict.nl/intakemoment",
         data: {
           medId: this.medicine.id,
-          id: obj.id,
           frequency: obj.frequency,
-          dosage: obj.dosage,
+          dosage: (obj.dosage + " " + obj.dosageForm),
           startDate: obj.startDate,
           time: obj.time,
           days: obj.days,
@@ -99,7 +97,7 @@ export default {
           medId: this.id,
           id: obj.id,
           frequency: obj.frequency,
-          dosage: obj.dosage,
+          dosage: (obj.dosage + " " + obj.dosageForm),
           startDate: obj.startDate,
           time: obj.time,
           days: obj.days,
