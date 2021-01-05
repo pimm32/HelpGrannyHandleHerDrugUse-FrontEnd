@@ -25,6 +25,6 @@ module.exports = {
   coverageDirectory: "coverage",
 
 
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
 
 };
