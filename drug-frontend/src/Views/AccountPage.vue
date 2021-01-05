@@ -7,7 +7,11 @@
       active-nav-item-class="font-weight-bold text-danger"
     >
       <b-tab title="Inloggen">
-        <Login v-on:log-in="Inloggen" v-on:google-login="InloggenMetGoogle" v-on:facebook-login="InloggenMetFacebook"/>
+        <Login
+          v-on:log-in="Inloggen"
+          v-on:google-login="InloggenMetGoogle"
+          v-on:facebook-login="InloggenMetFacebook"
+        />
       </b-tab>
       <b-tab title="Registreren">
         <Register v-on:reg-acc="CreateAccount" />
@@ -29,9 +33,7 @@ Vue.use(VueResizeText);
 export default {
   name: "AccountPage",
   data() {
-    return {
-      
-    };
+    return {};
   },
   components: {
     Login,
@@ -42,16 +44,21 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(obj.email, obj.wachtwoord)
-        .then(data => {
+        .then((data) => {
           data.user
             .updateProfile({
-              displayName: obj.gebruikersnaam
+              displayName: obj.gebruikersnaam,
             })
             .then(() => {});
+            this.Notificatie(
+            "Account succesvol aangemaakt",
+            "U account onder "+obj.email+" is succesvol aangemaakt " + obj.gebruikersnaam +" !",
+            "success"
+          );
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err.message;
-        });/*
+        }); /*
       axios({
         method: "post",
         url: "https://i338995core.venus.fhict.nl/account/",
@@ -66,18 +73,23 @@ export default {
       firebase
         .auth()
         .signInWithEmailAndPassword(obj.email, obj.wachtwoord)
-        
-        .then(data => {
+
+        .then((data) => {
           this.$router.replace({ name: "dashboard" });
-          console.log(data);
+          this.Notificatie(
+            "Succesvol ingelogd met email en wachtwoord",
+            "U bent succesvol ingelogd " + data.user.displayName,
+            "success"
+          );
+          console.log(data.user.displayName);
         })
-        .catch(err => {
+        .catch((err) => {
           this.error = err.message;
         });
     },
-    InloggenMetGoogle(){
+    InloggenMetGoogle() {
       var provider = new firebase.auth.GoogleAuthProvider();
-      
+      var that = this;
       firebase
         .auth()
         .signInWithPopup(provider)
@@ -89,6 +101,11 @@ export default {
           // eslint-disable-next-line
           var user = result.user;
           // ...
+          that.Notificatie(
+            "Succesvol ingelogd met google",
+            "U bent succesvol ingelogd " + result.user.displayName,
+            "success"
+          );
         })
         .catch(function (error) {
           // Handle Errors here.
@@ -103,40 +120,60 @@ export default {
           // eslint-disable-next-line
           var credential = error.credential;
           // ...
-        })
+        });
     },
-    InloggenMetFacebook(){
+    InloggenMetFacebook() {
       var provider = new firebase.auth.FacebookAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-  // eslint-disable-next-line
-  var token = result.credential.accessToken;
-  // The signed-in user info.
-  // eslint-disable-next-line
-  var user = result.user;
-  // ...
-}).catch(function(error) {
-  // Handle Errors here.
-  // eslint-disable-next-line
-  var errorCode = error.code;
-  // eslint-disable-next-line
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  // eslint-disable-next-line
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  // eslint-disable-next-line
-  var credential = error.credential;
-  // ...
-});
-    }
+      var that = this;
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(function (result) {
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          // eslint-disable-next-line
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          // eslint-disable-next-line
+          var user = result.user;
+          // ...
+          that.Notificatie(
+            "Succesvol ingelogd met facebook",
+            "U bent succesvol ingelogd " + result.user.displayName,
+            "success"
+          );
+        })
+        .catch(function (error) {
+          // Handle Errors here.
+          // eslint-disable-next-line
+          var errorCode = error.code;
+          // eslint-disable-next-line
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          // eslint-disable-next-line
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          // eslint-disable-next-line
+          var credential = error.credential;
+          // ...
+        });
+    },
+    Notificatie(_title, _text, _type) {
+      this.$notify({
+        group: "foo",
+        title: _title,
+        text: _text,
+        duration: 10000,
+        type: _type,
+      });
+    },
   },
   computed: {
     // map `this.user` to `this.$store.getters.user`
     ...mapGetters({
-      user: "user"
-    })
-}}
+      user: "user",
+    }),
+  },
+};
 </script>
 
 <style scoped >

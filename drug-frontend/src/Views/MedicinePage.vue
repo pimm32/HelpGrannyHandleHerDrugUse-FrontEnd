@@ -79,6 +79,11 @@ export default {
             ])
         )
         .catch((err) => console.log(err));
+        this.Notificatie(
+        "Inname moment toegevoegd",
+        "Het innamemoment is succesvol toegevoegd voor " + this.medicine.name + " !",
+        "success"
+      );
     },
     DeleteIntakemoment(obj) {
       axios({
@@ -88,6 +93,11 @@ export default {
           id: obj.id,
         },
       });
+      this.Notificatie(
+        "Inname moment verwijderd",
+        "Het innamemoment is succesvol verwijderd voor " + this.medicine.name + " !",
+        "error"
+      );
     },
     UpdateIntakemoment(obj) {
       axios({
@@ -103,7 +113,23 @@ export default {
           days: obj.days,
         },
       });
+      this.Notificatie(
+        "Inname moment geupdate",
+        "Het innamemoment is succesvol aangepast voor " + this.medicine.name +" !",
+        "success"
+      );
     },
+    Notificatie(_title, _text, _type) {
+      this.$notify({
+        group: "foo",
+        title: _title,
+        text: _text,
+        duration: 10000,
+        type: _type
+        
+      });
+    },
+    
   },
 };
 </script>

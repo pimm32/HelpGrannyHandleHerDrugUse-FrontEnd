@@ -24,7 +24,15 @@ export default {
     })
     .then((res) => this.effects = res.data)
     .catch((err) => console.log(err));
-    }
+    },
+    updated(){
+        axios({
+        method: "get",
+        url: "https://i338995core.venus.fhict.nl/Medicine/sideeffects/" + this.medicine.id,
+    })
+    .then((res) => this.effects = res.data)
+    .catch((err) => console.log(err));
+    },
     }
 
 </script>

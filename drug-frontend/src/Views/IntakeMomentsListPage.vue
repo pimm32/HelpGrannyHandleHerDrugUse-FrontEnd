@@ -47,19 +47,21 @@ export default {
         },
         }
       )
+      this.Notificatie(
+            "Verificatie",
+            "Uw inname moment is succesvol geverifieerd",
+            "info"
+          );
     },
     AddWeeklyIntake(obj){
       var newDate = new Date(obj.startDate);
       newDate.setDate(newDate.getDate() + 7 );
-      let day = newDate.getDay();
-      if(day.toString().length == 1){
-        let day2 = "0" + day.toString();
-        day = day2;
-      }
-      console.log(newDate);
-      console.log(newDate.getFullYear() + ":" + (newDate.getMonth()+1) + ":" +newDate.getDate());
-      console.log(day);
-      console.log(newDate.getHours() + ":" + newDate.getMinutes() + ":" + newDate.getSeconds());
+      this.Notificatie(
+            "Nieuw inname moment",
+            "Een nieuw inname moment is aangemaakt voor: " + obj.medicineName + " op: " + newDate.toString(),
+            "success"
+          );
+
       
       axios({
         method: "post",
@@ -74,6 +76,16 @@ export default {
           days: obj.days,
         },
       })
+    },
+    Notificatie(_title, _text, _type) {
+      this.$notify({
+        group: "foo",
+        title: _title,
+        text: _text,
+        duration: 10000,
+        type: _type
+        
+      });
     },
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)

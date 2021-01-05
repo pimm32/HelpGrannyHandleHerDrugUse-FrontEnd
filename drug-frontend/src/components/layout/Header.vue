@@ -2,12 +2,13 @@
   <header class="header">
     <h1>Maak je niet drug</h1>
     <div id="nav">
-      <b-navbar toggleable="lg" type="dark" variant="secondary">
+      <b-navbar toggleable="lg" type="dark" pills variant="secondary">
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item to="/" v-resize-text>Home</b-nav-item>
+            <b-nav-item v-if="user.loggedIn" to="/intakelist" v-resize-text>Home</b-nav-item>
+            <b-nav-item v-if="!user.loggedIn" to="/" v-resize-text>Home</b-nav-item>
             
             <b-nav-item-dropdown to="/#" v-if="user.loggedIn" v-resize-text>
               <template #button-content>

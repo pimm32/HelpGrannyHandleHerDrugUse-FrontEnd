@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     AddNewMed(newMed) {
-      var that = this;
       console.log(this.user.data.uid);
       axios({
         method: "post",
@@ -53,26 +52,40 @@ export default {
           description: newMed.description,
           UID : this.user.data.uid, 
         },
-      }).then((res) => (that.medicineList, [...that.medicineList, res.data]));
-      this.$refs[0].$refs.table.refresh();
-      
+      }).then((res) => (this.medicineList, [...this.medicineList, res.data]));
+      this.Notificatie(
+        "Medicijn toegevoegd",
+        "Het medicijn " + newMed.name + " is succesvol toegevoegd!",
+        "success"
+      );
     },
     DeleteMed(obj) {
       axios({
         method: "delete",
         url: "https://i338995core.venus.fhict.nl/Medicine/" + obj.id,
       });
+      this.Notificatie(
+        "Medicijn verwijderd",
+        "Het medicijn " + obj.name + " is succesvol verwijderd!",
+        "error"
+      );
     },
 
-    ForceRender: function(){
-      this.rendered = false;
-      this.$nextTick(()=>{this.rendered = true;})
-    },
 
     InspectMedicine(obj) {
       console.log(obj)
       this.$router.push({ name: "MedicineDetail", params: { medicine : obj } });
       
+    },
+    Notificatie(_title, _text, _type) {
+      this.$notify({
+        group: "foo",
+        title: _title,
+        text: _text,
+        duration: 10000,
+        type: _type
+        
+      });
     },
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)
