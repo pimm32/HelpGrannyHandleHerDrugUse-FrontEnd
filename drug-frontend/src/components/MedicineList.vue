@@ -1,11 +1,12 @@
 <template>
     <div class="responsive-table">
       
+      
       <h2 class="card-header">Uw medicijnen</h2>
-    <b-table fixed responsive="true" striped hover :items="medicineList" :fields=fields>
+    <b-table fixed responsive="true" striped hover :busy.sync="isBusy" :items="medicineList" :fields=fields ref="table">
       <template v-slot:cell(info)="row">
          <b-button size="sm" variant="info" @click="info(row.item, $event.target)" class="btn btn-primary">
-           Inspect
+           Inspecteer
            
         </b-button>
       </template>
@@ -35,6 +36,7 @@ export default {
   },
   data(){
     return{
+      isBusy: false,
       fields:[
         {key: "name", label: "Naam"},
         {key: "description", label: "Beschrijving"},
@@ -47,9 +49,14 @@ export default {
   methods:{
     info: function(obj){
       this.$emit("inspect-medicine", obj)
+      console.log(obj.id)
     },
     deleteMed: function(obj){
+      this.isBusy = false;
       this.$emit("del-medicine", obj);
+      this.isBusy = false;
+      this.$refs.table.refresh();
+
     },
     showMsgBoxTwo: function(obj) {
         this.boxTwo = ''

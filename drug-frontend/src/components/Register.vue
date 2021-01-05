@@ -72,15 +72,15 @@
       <b-button type="reset" variant="danger" class="ml-2 btn">Reset</b-button>
      
         <b-list-group class="mt-5">
-      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.required"> Gebruikersnaam is verplicht!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.minLength">Gebruikersnaam moet minimaal {{$v.gebruikersnaam.$params.minLength.min}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.maxLength">Gebruikersnaam mag maximaal {{$v.gebruikersnaam.$params.maxLength.max}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.email.required">Email is verplicht!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.email.email">Dit is geen geldig email adres!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required">Wachtwoord is verplicht!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength">Wachtwoord moet minimaal {{$v.wachtwoord.$params.minLength.min}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength">Wachtwoord mag maximaal {{$v.wachtwoord.$params.maxLength.max}} karakters zijn!</b-list-group-item>
-      <b-list-group-item variant="danger" v-if="!$v.wachtwoord2.sameAswachtwoord">Wachtwoorden komen niet overeen!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.required && showError"> Gebruikersnaam is verplicht!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.minLength && showError">Gebruikersnaam moet minimaal {{$v.gebruikersnaam.$params.minLength.min}} karakters zijn!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.gebruikersnaam.maxLength && showError">Gebruikersnaam mag maximaal {{$v.gebruikersnaam.$params.maxLength.max}} karakters zijn!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.email.required && showError">Email is verplicht!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.email.email && showError">Dit is geen geldig email adres!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required && showError">Wachtwoord is verplicht!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength && showError">Wachtwoord moet minimaal {{$v.wachtwoord.$params.minLength.min}} karakters zijn!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength && showError">Wachtwoord mag maximaal {{$v.wachtwoord.$params.maxLength.max}} karakters zijn!</b-list-group-item>
+      <b-list-group-item variant="danger" v-if="!$v.wachtwoord2.sameAswachtwoord && showError">Wachtwoorden komen niet overeen!</b-list-group-item>
       <b-list-group-item variant="info" v-if="$v.$invalid"> <kbd>Ongeldige invoer</kbd></b-list-group-item>
       <b-list-group-item variant="success" v-if="!$v.$invalid"> <kbd>Geldige invoer</kbd></b-list-group-item>
     </b-list-group>
@@ -102,6 +102,7 @@ export default {
         wachtwoord2: "",
         email: "",
       show: true,
+      showError: false,
       windowWidth: window.innerWidth,
     };
   },
@@ -117,6 +118,7 @@ export default {
     if(this.$v.$invalid){
       e.preventDefault();
       alert("controleer uw gegevens, iets klopt niet");
+      this.showError = true;
     }
     else{
       this.$emit("reg-acc", newAcc);
@@ -129,6 +131,7 @@ export default {
       this.wachtwoord2 = "";
       this.email = "";
       this.show = false;
+      this.showError = false;
       this.$nextTick(() => {
         this.show = true;
       });

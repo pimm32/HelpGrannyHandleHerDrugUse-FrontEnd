@@ -36,33 +36,28 @@
         >
         </b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary" class="mr-2">Login</b-button>
-      <b-button type="reset" variant="danger" class="ml-2">Reset</b-button>
+      <b-button type="submit" variant="primary" class="mr-2">Inloggen</b-button>
+      <b-button type="reset" variant="danger" class="ml-2">Opnieuw beginnen</b-button>
       
       
       <b-list-group class="mt-5">
-        <b-list-group-item variant="danger" v-if="!$v.email.required">
-          Gebruikersnaam is verplicht!
+        <b-list-group-item variant="danger" v-if="!$v.email.required && showError">
+          Email is verplicht!
         </b-list-group-item>
-        <b-list-group-item variant="danger" v-if="!$v.email.minLength"
-          >Gebruikersnaam moet minimaal
-          {{ $v.gebruikersnaam.$params.minLength.min }} karakters
+        <b-list-group-item variant="danger" v-if="!$v.email.minLength && showError"
+          >Email moet minimaal
+          {{ $v.Email.$params.minLength.min }} karakters
           zijn!</b-list-group-item
         >
-        <b-list-group-item variant="danger" v-if="!$v.email.maxLength"
-          >Gebruikersnaam mag maximaal
-          {{ $v.gebruikersnaam.$params.maxLength.max }} karakters
-          zijn!</b-list-group-item
-        >
-        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required"
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required && showError"
           >Wachtwoord is verplicht!</b-list-group-item
         >
-        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength"
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.minLength && showError"
           >Wachtwoord moet minimaal
           {{ $v.wachtwoord.$params.minLength.min }} karakters
           zijn!</b-list-group-item
         >
-        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength"
+        <b-list-group-item variant="danger" v-if="!$v.wachtwoord.maxLength && showError"
           >Wachtwoord mag maximaal
           {{ $v.wachtwoord.$params.maxLength.max }} karakters
           zijn!</b-list-group-item
@@ -76,19 +71,19 @@
       </b-list-group>
     </b-form>
     <b-row>
-      <b-col cols="5"> </b-col>
       
-      <b-col cols="1"> 
-     <img v-on:click="FacebookLogin" src="../../afbeeldingen/facebook.png" width="100%" title="Login with facebook"/>
-  <label> Login met Facebook</label>
+      <b-col cols="6"> 
+     <img v-on:click="FacebookLogin" src="../../afbeeldingen/facebook.png" style="margin-left: 50%" class="logo" title="Login with facebook"/>
+  <br/>
+  <label style="margin-left: 50%"> Login met Facebook</label>
       </b-col>
       
-      <b-col cols="1">
-     <img v-on:click="GoogleLogin" src="../../afbeeldingen/google.png" width="100%" title="Login with google"/>
-    <label>Login met Google</label>
+      <b-col cols="6">
+     <img v-on:click="GoogleLogin" src="../../afbeeldingen/google.png"  style="margin-right: 50%" class="logo" title="Login with google"/>
+     <br/>
+    <label  style="margin-right: 50%">Login met Google</label>
       
       </b-col>
-      <b-col cols="5"/>
 
 
     </b-row>
@@ -113,6 +108,7 @@ export default {
       email: "",
       wachtwoord: "",
       show: true,
+      showError: false,
       windowWidth2: window.innerWidth,
     };
   },
@@ -126,6 +122,7 @@ export default {
       if (this.$v.$invalid) {
         e.preventDefault();
         alert("Controleer uw gegevens, iets klopt niet");
+        this.showError = true;
       } else {
         this.$emit("log-in", Acc);
       }
@@ -135,6 +132,7 @@ export default {
       this.account.email = "";
       this.account.wachtwoord = "";
       this.show = false;
+      this.showError = false;
       this.$nextTick(() => {
         this.show = true;
       });
@@ -150,8 +148,6 @@ export default {
     email: {
       required,
       email,
-      minLength: minLength(4),
-      maxLength: maxLength(24),
     },
     wachtwoord: {
       required,
@@ -180,5 +176,11 @@ export default {
 .normal__class2 {
   margin-left: 5%;
   margin-right: 5%;
+}
+.logo{
+  width: 20%;
+  min-width: 5rem;
+  max-width: 10rem;
+  margin:5%;
 }
 </style>

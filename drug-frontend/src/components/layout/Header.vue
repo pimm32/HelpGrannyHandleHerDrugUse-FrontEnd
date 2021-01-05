@@ -2,23 +2,33 @@
   <header class="header">
     <h1>Maak je niet drug</h1>
     <div id="nav">
-      <b-navbar toggleable="lg" type="dark" variant="secondary">
+      <b-navbar toggleable="lg" type="dark" pills variant="secondary">
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item to="/" v-resize-text>Home</b-nav-item>
-            <b-nav-item to="/medicinelist" v-resize-text>
-              Medicine List</b-nav-item>
-            <b-nav-item to="/#" v-if="user.loggedIn" v-resize-text>
-              My Account</b-nav-item>
+            <b-nav-item v-if="user.loggedIn" to="/intakelist" v-resize-text>Home</b-nav-item>
+            <b-nav-item v-if="!user.loggedIn" to="/" v-resize-text>Home</b-nav-item>
+            
+            <b-nav-item-dropdown to="/#" v-if="user.loggedIn" v-resize-text>
+              <template #button-content>
+                Mijn medicijnen
+              </template>
+              <b-dropdown-item to="/medicinelist">Medicijnen lijst</b-dropdown-item>
+              <b-dropdown-item to="/intakelist">Inname momenten</b-dropdown-item>
+            </b-nav-item-dropdown>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
-            <b-nav-item v-if="user.loggedIn">
-              <a @click.prevent="signOut"> Log Out</a></b-nav-item>
-            <b-nav-item to="/account" v-if="!user.loggedIn" v-resize-text>
-              Login/Register</b-nav-item>
-            <div v-if="user.loggedIn">{{user.data.displayName}}</div>
+            <b-nav-item-dropdown to="/#" v-resize-text>
+            <template #button-content>
+              <em>Mijn Account</em>
+            </template>
+              <b-dropdown-item v-if="user.loggedIn"><a @click.prevent="signOut"> Uitloggen</a></b-dropdown-item>
+              <b-dropdown-item v-else to="/account">Inloggen/Registreren</b-dropdown-item>
+
+
+            </b-nav-item-dropdown>
+            
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -46,9 +56,10 @@ export default {
         .signOut()
         .then(() => {
           this.$router.replace({
-            name: "home",
+            name: "Home",
           });
         });
+        location.reload();
     },
   },
 };

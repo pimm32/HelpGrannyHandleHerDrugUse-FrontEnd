@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-header">Dashboard</div>
           <div class="card-body">
-            <div v-if="user" class="alert alert-success" role="alert">You: {{user.data.displayName}}, are logged in!</div>
+            <div v-if="user" class="alert alert-success" role="alert">You: {{user.data.displayName}} with token: {{this.user.data.uid}}, are logged in!</div>
           </div>
         </div>
       </div>
@@ -15,6 +15,10 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  data(){
+    return{
+    }
+  },
   computed: {
     // map `this.user` to `this.$store.getters.user`
     ...mapGetters({

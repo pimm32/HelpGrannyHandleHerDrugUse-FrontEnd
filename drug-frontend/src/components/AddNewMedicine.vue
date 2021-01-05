@@ -2,7 +2,11 @@
 
 <template>
   <div>
-    <b-button variant="outline-primary" v-b-modal.voeg-medicijn-toe-modal class="ml-2 mr-2">
+    <b-button
+      variant="outline-primary"
+      v-b-modal.voeg-medicijn-toe-modal
+      class="ml-2 mr-2"
+    >
       Klik hier om nieuw medicijn toe te voegen!
     </b-button>
 
@@ -13,6 +17,7 @@
       ok-title="toevoegen"
       @ok="addMedicine"
       cancel-title="annuleren"
+      @cancel="ResetModal"
     >
       <form ref="form" @submit="addMedicine">
         <b-form-group
@@ -25,26 +30,31 @@
             v-model.trim="name"
             required
           ></b-form-input>
-          <div class="error" v-if="!$v.name.required">Naam is verplicht!</div>
-          <div class="error" v-if="!$v.name.minLength">
-            De naam van het medicijn moet minimaal {{ $v.name.$params.minLength.min }} karakters zijn!.
+          <div class="error" v-if="!$v.name.required && showError">
+            Naam is verplicht!
+          </div>
+          <div class="error" v-if="!$v.name.minLength && showError">
+            De naam van het medicijn moet minimaal
+            {{ $v.name.$params.minLength.min }} karakters zijn!.
           </div>
         </b-form-group>
         <b-form-group
           label="omschrijving"
           label-for="description-input"
-           :class="{ 'form-group--error': $v.description.$error }"
+          :class="{ 'form-group--error': $v.description.$error }"
         >
           <b-form-input
             id="description-input"
             v-model="description"
             required
           ></b-form-input>
-          <div class="error" v-if="!$v.description.required">Beschrijving is verplicht!</div>
-          <div class="error" v-if="!$v.description.maxLength">
-            De beschrijving mag uit maximaal {{ $v.description.$params.maxLength.max }} karakters bestaan!
+          <div class="error" v-if="!$v.description.required && showError">
+            Beschrijving is verplicht!
           </div>
-          
+          <div class="error" v-if="!$v.description.maxLength && showError">
+            De beschrijving mag uit maximaal
+            {{ $v.description.$params.maxLength.max }} karakters bestaan!
+          </div>
         </b-form-group>
       </form>
     </b-modal>
@@ -65,22 +75,22 @@ export default {
       id: 10,
       name: "",
       description: "",
-
+      showError: false,
       showNewMed: false,
     };
   },
   methods: {
     submit() {
-      console.log('submit!')
-      this.$v.$touch()
+      console.log("submit!");
+      this.$v.$touch();
       if (this.$v.$invalid) {
-        this.submitStatus = 'ERROR'
+        this.submitStatus = "ERROR";
       } else {
         // do your submit logic here
-        this.submitStatus = 'PENDING'
+        this.submitStatus = "PENDING";
         setTimeout(() => {
-          this.submitStatus = 'OK'
-        }, 500)
+          this.submitStatus = "OK";
+        }, 500);
       }
     },
     addMedicine(e) {
@@ -90,13 +100,15 @@ export default {
         description: this.description,
       };
 
-
-      this.$v.$touch()
+      this.$v.$touch();
       if (this.$v.$invalid) {
         e.preventDefault();
-        alert("Vul de juiste waarden in voor het nieuwe medicijn!")
+        alert("Vul de juiste waarden in voor het nieuwe medicijn!");
+        this.showError = true;
       } else {
-              this.$emit("add-medicine", newMed);
+        this.$emit("add-medicine", newMed);
+
+        this.ResetModal();
       }
     },
 
@@ -106,6 +118,7 @@ export default {
     ResetModal() {
       this.name = "";
       this.description = "";
+      this.showError = false;
     },
   },
   validations: {
