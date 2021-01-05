@@ -1,7 +1,6 @@
-import { createLocalVue } from '@vue/test-utils'
-import { mount } from '@vue/test-utils'
+import { createLocalVue, mount } from '@vue/test-utils'
 import Login from '../components/Login.vue'
-import {BootstrapVue} from "bootstrap-vue";
+import { BootstrapVue } from "bootstrap-vue";
 // create an extended Vue constructor
 const localVue = createLocalVue()
 
@@ -11,14 +10,13 @@ localVue.use(BootstrapVue)
 // pass the localVue to the mount options
 
 test('resets fields', async () => {
-  const wrapper = mount(Login,  {
+  const wrapper = mount(Login, {
     localVue,
     propsData: {
       email: 'Abc@gmail.com',
       wachtwoord: 'something'
     }
-  }
-  )
+  })
 
   await wrapper.find('#reset').trigger('click')
 
