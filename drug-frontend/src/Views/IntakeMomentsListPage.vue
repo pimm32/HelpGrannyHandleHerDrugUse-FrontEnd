@@ -6,7 +6,15 @@
           v-bind:intakeList="intakeMoments"
           v-on:verify-intake="VerifyIntake"
           v-on:weekly-intake="AddWeeklyIntake"
+          
         />
+      </div>
+      <div class="card mt-5">
+      <b-label>
+        Rood betekend dat u dat medicijn vergeten bent in te nemen! <br/>
+        Oranje betekend dat u dat medicijn vandaag in dient te nemen! <br/>
+        Blauw betekend dat u dat medicijn in de toekomst pas in dient te nemen!
+      </b-label>
       </div>
     </div>
   </div>
