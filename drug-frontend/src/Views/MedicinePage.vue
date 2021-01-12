@@ -88,10 +88,7 @@ export default {
     DeleteIntakemoment(obj) {
       axios({
         method: "delete",
-        url: "https://i338995core.venus.fhict.nl/intakemoment",
-        data: {
-          id: obj.id,
-        },
+        url: "https://i338995core.venus.fhict.nl/intakemoment/"+ obj.id,
       });
       this.Notificatie(
         "Inname moment verwijderd",
@@ -115,7 +112,7 @@ export default {
       });
       this.Notificatie(
         "Inname moment geupdate",
-        "Het innamemoment is succesvol aangepast voor " + this.medicine.name +" !",
+        "Het innamemoment is succesvol aangepast voor " + this.medicine.name +"!",
         "success"
       );
     },

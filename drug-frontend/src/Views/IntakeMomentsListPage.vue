@@ -41,10 +41,7 @@ export default {
       axios(
         {
           method: "delete",
-        url: "https://i338995core.venus.fhict.nl/intakemoment",
-        data: {
-          id: obj.id,
-        },
+        url: "https://i338995core.venus.fhict.nl/intakemoment/" + obj.id,
         }
       )
       this.Notificatie(

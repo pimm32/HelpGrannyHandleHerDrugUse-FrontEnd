@@ -1,7 +1,7 @@
 <template>
     <div class="responsive-table">
       <h2 class="card-header">Inneem momenten</h2>
-    <b-table fixed responsive="true" striped hover :items="intakeList" :fields=fields>
+    <b-table fixed responsive="true" striped :tbody-tr-class="rowClass" hover :sort-by.sync="sort" :items="intakeList" :fields=fields>
       <template v-slot:cell(date)="row">
       {{row.item.startDate.substring(0,(row.item.startDate.indexOf("T")))}}
       </template>
@@ -30,10 +30,11 @@ export default {
   },
   data(){
     return{
+      sort:"date",
       fields:[
         {key: "dosage", label: "Dosering"},
         {key: "medicineName", label: "Med naam"},
-        { key: "date", label: "Datum" },
+        { key: "date", label: "Datum", sortable :"true" },
         {key: "time", label: "Tijd"},
         {key: "verify", label: "Afronden"},
 
@@ -41,6 +42,22 @@ export default {
     }
   },
   methods:{
+    rowClass: function(obj, type){
+      if(!obj || type!=='row'){
+        return;
+      }
+      let date = new Date(obj.startDate); 
+      let currentDate = new Date();
+      if(date.toLocaleDateString() < currentDate.toLocaleDateString() ){
+        return "table-danger"
+      }
+      if(date.toLocaleDateString() === currentDate.toLocaleDateString() ){
+        return "table-warning"
+      }
+      if(date.toLocaleDateString() > currentDate.toLocaleDateString() ){
+        return "table-info"
+      }
+    },
     VerifyIntake: function(obj){
         console.log("intake verified" );
         this.showWeeklyIntakeModalVerification(obj);
