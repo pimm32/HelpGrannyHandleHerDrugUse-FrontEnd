@@ -67,7 +67,6 @@ export default {
         { key: "frequency", label: "Herhaling" },
         { key: "date", label: "Datum" },
         { key: "time", label: "Tijd" },
-        { key: "edit", label: "Aanpassen" },
         { key: "delete", label: "Verwijderen" },
       ],
     };

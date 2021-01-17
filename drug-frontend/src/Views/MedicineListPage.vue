@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     AddNewMed(newMed) {
+      this.medicineList = [...this.medicineList, newMed];
       console.log(this.user.data.uid);
       axios({
         method: "post",
@@ -60,6 +61,7 @@ export default {
       );
     },
     DeleteMed(obj) {
+      this.medicineList.splice(this.medicineList.indexOf(obj), 1);
       axios({
         method: "delete",
         url: "https://i338995core.venus.fhict.nl/Medicine/" + obj.id,
