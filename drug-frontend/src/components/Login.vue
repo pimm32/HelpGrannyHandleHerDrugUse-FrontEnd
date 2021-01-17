@@ -37,7 +37,7 @@
         </b-form-input>
       </b-form-group>
       <b-button type="submit" variant="primary" class="mr-2">Inloggen</b-button>
-      <b-button type="reset" variant="danger" class="ml-2">Opnieuw beginnen</b-button>
+      <b-button type="reset" variant="danger" id="reset" class="ml-2">Opnieuw Beginnen</b-button>
       
       
       <b-list-group class="mt-5">
