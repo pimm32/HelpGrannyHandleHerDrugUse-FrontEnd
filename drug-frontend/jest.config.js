@@ -24,7 +24,10 @@ module.exports = {
 
   coverageDirectory: "coverage",
 
-
   testEnvironment: "jsdom",
-
+  collectCoverage: true,
+  testResultsProcessor: "jest-sonar-reporter",
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "/src/test/"]
 };
