@@ -48,13 +48,13 @@ export default {
       }
       let date = new Date(obj.startDate); 
       let currentDate = new Date();
-      if(date.toLocaleDateString() < currentDate.toLocaleDateString() ){
+      if(date.toLocaleString() < currentDate.toLocaleString() ){
         return "table-danger"
       }
       if(date.toLocaleDateString() === currentDate.toLocaleDateString() ){
         return "table-warning"
       }
-      if(date.toLocaleDateString() > currentDate.toLocaleDateString() ){
+      if(date.toLocaleString() > currentDate.toLocaleString() ){
         return "table-info"
       }
     },

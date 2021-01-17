@@ -12,7 +12,6 @@
           <NewMedicineIntake v-on:add-intakemoment="addIntakemoment" />
           <IntakeList
             v-bind:intakeList="intakeMoments"
-            v-on:edit-intakemoment="UpdateIntakemoment"
             v-on:delete-intakemoment="DeleteIntakemoment"
           />
         </b-tab>
