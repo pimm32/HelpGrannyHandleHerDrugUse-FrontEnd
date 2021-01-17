@@ -13,7 +13,7 @@ Vue.use(Router)
     {
         path: '/',
         name: 'Home',
-        component: () => import(/* webpackChunkName: "about" */ './Views/Home.vue')
+        component: () => import('./Views/AccountPage.vue')
       },
       {
         path: '/medicinelist',
@@ -36,9 +36,9 @@ Vue.use(Router)
         component: Dashboard
       },
       {
-        path: '/medicineDetail/:id',
+        path: '/medicineDetail',
         name: 'MedicineDetail',
         component: MedicinePage
-      },      
+      },         
   ]
 })

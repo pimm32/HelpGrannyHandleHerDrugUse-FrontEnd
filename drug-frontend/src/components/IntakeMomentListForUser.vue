@@ -1,7 +1,6 @@
 <template>
     <div class="responsive-table">
       <h2 class="card-header">Inneem momenten</h2>
-      {{this.intakeList}}
     <b-table fixed responsive="true" striped hover :items="intakeList" :fields=fields>
       <template v-slot:cell(date)="row">
       {{row.item.startDate.substring(0,(row.item.startDate.indexOf("T")))}}
@@ -11,7 +10,7 @@
       </template>
       <template v-slot:cell(verify)="row">
          <b-button size="sm" variant="info" @click="VerifyIntake(row.item, $event.target)" class="btn btn-primary">
-           Verify           
+           Afronden           
         </b-button>
       </template>       
     </b-table>

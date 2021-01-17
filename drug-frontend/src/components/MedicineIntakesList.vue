@@ -1,5 +1,6 @@
 <template>
   <div class="responsive-table">
+    
     <h2 class="card-header">Inneem momenten</h2>
     <b-table
       fixed
@@ -25,32 +26,42 @@
         >
           Aanpassen
         </b-button>
+        
       </template>
       <template v-slot:cell(delete)="row">
         <b-button
           class="btn"
           variant="danger"
           size="sm"
-          @click="showMsgBoxTwo(row.item, $event.target)"
+          @click="DeleteVerificatie(row.item, $event.target)"
         >
+        
+        
           Verwijder
         </b-button>
       </template>
     </b-table>
+    
+    <EditExistingIntakeMoment  v-on:edit-intakemoment="edit2" v-bind:intakemoment="editableIntake"/>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import VueResizeText from "vue-resize-text";
+import EditExistingIntakeMoment from "./EditExistingIntakeMoment";
 Vue.use(VueResizeText);
 
 export default {
   name: "IntakeList",
   props: ["intakeList"],
-  components: {},
+  components: {
+    EditExistingIntakeMoment,
+  },
   data() {
     return {
+      showEditIntake: false,
+      editableIntake: null,
       fields: [
         { key: "dosage", label: "Dosering" },
         { key: "frequency", label: "Herhaling" },
@@ -61,14 +72,23 @@ export default {
       ],
     };
   },
+  mounted: function(){
+    this.showEditIntake= false;
+  },
   methods: {
     edit: function (obj) {
-      this.$emit("edit-intake", obj);
+      this.showEditIntake= true,
+      this.editableIntake = obj
+      this.$bvModal.show("showEditIntake");
+    },
+    edit2: function(obj){
+      this.$$emit("edit-intakemoment", obj);
+      this.showEditIntake = false;
     },
     deleteIntake: function (obj) {
       this.$emit("delete-intakemoment", obj);
     },
-    showMsgBoxTwo: function (obj) {
+    DeleteVerificatie: function (obj) {
       this.boxTwo = "";
       this.$bvModal
         .msgBoxConfirm(

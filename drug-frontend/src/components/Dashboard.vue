@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-header">Dashboard</div>
           <div class="card-body">
-            <div v-if="user" class="alert alert-success" role="alert">You: {{user.data.displayName}} with token: {{this.user.uid}}, are logged in!</div>
+            <div v-if="user" class="alert alert-success" role="alert">You: {{user.data.displayName}} with token: {{this.user.data.uid}}, are logged in!</div>
           </div>
         </div>
       </div>
@@ -14,11 +14,9 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import firebase from "firebase";
 export default {
   data(){
     return{
-      user : firebase.auth().currentUser,
     }
   },
   computed: {

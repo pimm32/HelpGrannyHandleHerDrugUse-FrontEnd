@@ -36,22 +36,17 @@
         >
         </b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary" class="mr-2">Login</b-button>
-      <b-button type="reset" variant="danger" id="reset" class="ml-2">Reset</b-button>
+      <b-button type="submit" variant="primary" class="mr-2">Inloggen</b-button>
+      <b-button type="reset" variant="danger" id="reset" class="ml-2">Opnieuw Beginnen</b-button>
       
       
       <b-list-group class="mt-5">
         <b-list-group-item variant="danger" v-if="!$v.email.required && showError">
-          Gebruikersnaam is verplicht!
+          Email is verplicht!
         </b-list-group-item>
         <b-list-group-item variant="danger" v-if="!$v.email.minLength && showError"
-          >Gebruikersnaam moet minimaal
-          {{ $v.gebruikersnaam.$params.minLength.min }} karakters
-          zijn!</b-list-group-item
-        >
-        <b-list-group-item variant="danger" v-if="!$v.email.maxLength && showError"
-          >Gebruikersnaam mag maximaal
-          {{ $v.gebruikersnaam.$params.maxLength.max }} karakters
+          >Email moet minimaal
+          {{ $v.Email.$params.minLength.min }} karakters
           zijn!</b-list-group-item
         >
         <b-list-group-item variant="danger" v-if="!$v.wachtwoord.required && showError"
@@ -153,8 +148,6 @@ export default {
     email: {
       required,
       email,
-      minLength: minLength(4),
-      maxLength: maxLength(24),
     },
     wachtwoord: {
       required,

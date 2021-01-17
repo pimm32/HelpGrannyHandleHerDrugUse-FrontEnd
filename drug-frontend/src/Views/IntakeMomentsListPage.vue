@@ -40,17 +40,52 @@ export default {
     VerifyIntake(obj){
       axios(
         {
-          method:"put",
-          url: "",
-          data: {
-            intakeId: obj.id,
-            verified: true,
-          }
+          method: "delete",
+        url: "https://i338995core.venus.fhict.nl/intakemoment",
+        data: {
+          id: obj.id,
+        },
         }
       )
+      this.Notificatie(
+            "Verificatie",
+            "Uw inname moment is succesvol geverifieerd",
+            "info"
+          );
     },
     AddWeeklyIntake(obj){
-      console.log(obj)
+      var newDate = new Date(obj.startDate);
+      newDate.setDate(newDate.getDate() + 7 );
+      this.Notificatie(
+            "Nieuw inname moment",
+            "Een nieuw inname moment is aangemaakt voor: " + obj.medicineName + " op: " + newDate.toString(),
+            "success"
+          );
+
+      
+      axios({
+        method: "post",
+        url: "https://i338995core.venus.fhict.nl/intakemoment",
+        data: {
+          medId: obj.medicineId,
+          id: obj.id,
+          frequency: obj.frequency,
+          dosage: obj.dosage,
+          startDate: (newDate.getFullYear() + "-" + (newDate.getMonth()+1) + "-" +newDate.getDate()),
+          time: (newDate.getHours() + ":" + newDate.getMinutes() + ":" + newDate.getSeconds()),
+          days: obj.days,
+        },
+      })
+    },
+    Notificatie(_title, _text, _type) {
+      this.$notify({
+        group: "foo",
+        title: _title,
+        text: _text,
+        duration: 10000,
+        type: _type
+        
+      });
     },
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)
