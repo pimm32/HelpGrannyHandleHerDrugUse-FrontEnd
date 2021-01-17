@@ -17,6 +17,9 @@ test('resets fields', async () => {
       wachtwoord: 'something'
     }
   })
+  
+  expect(wrapper.attributes().email).toMatch("Abc@gmail.com")
+  expect(wrapper.attributes().wachtwoord).toMatch("something")
 
   await wrapper.find('#reset').trigger('click')
 
