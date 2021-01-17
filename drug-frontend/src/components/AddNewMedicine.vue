@@ -6,6 +6,7 @@
       variant="outline-primary"
       v-b-modal.voeg-medicijn-toe-modal
       class="ml-2 mr-2"
+      id="add-meds"
     >
       Klik hier om nieuw medicijn toe te voegen!
     </b-button>
@@ -94,7 +95,6 @@ export default {
       }
     },
     addMedicine(e) {
-      //e.preventDefault();
       const newMed = {
         name: this.name,
         description: this.description,
@@ -102,8 +102,10 @@ export default {
 
       this.$v.$touch();
       if (this.$v.$invalid) {
-        e.preventDefault();
         alert("Vul de juiste waarden in voor het nieuwe medicijn!");
+        if (e) {
+          e.preventDefault();
+        }
         this.showError = true;
       } else {
         this.$emit("add-medicine", newMed);
