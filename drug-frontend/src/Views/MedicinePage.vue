@@ -12,7 +12,6 @@
           <NewMedicineIntake v-on:add-intakemoment="addIntakemoment" />
           <IntakeList
             v-bind:intakeList="intakeMoments"
-            v-on:edit-intakemoment="UpdateIntakemoment"
             v-on:delete-intakemoment="DeleteIntakemoment"
           />
         </b-tab>
@@ -58,6 +57,7 @@ export default {
   },
   methods: {
     addIntakemoment(obj) {
+      this.intakeMoments = [...this.intakeMoments, obj];
       console.log(obj);
       axios({
         method: "post",
@@ -86,37 +86,15 @@ export default {
       );
     },
     DeleteIntakemoment(obj) {
+      this.intakeMoments.splice(this.intakeMoments.indexOf(obj), 1);
       axios({
         method: "delete",
-        url: "https://i338995core.venus.fhict.nl/intakemoment",
-        data: {
-          id: obj.id,
-        },
+        url: "https://i338995core.venus.fhict.nl/intakemoment/"+ obj.id,
       });
       this.Notificatie(
         "Inname moment verwijderd",
         "Het innamemoment is succesvol verwijderd voor " + this.medicine.name + " !",
         "error"
-      );
-    },
-    UpdateIntakemoment(obj) {
-      axios({
-        method: "put",
-        url: "https://i338995core.venus.fhict.nl/intakemoment",
-        data: {
-          medId: this.id,
-          id: obj.id,
-          frequency: obj.frequency,
-          dosage: (obj.dosage + " " + obj.dosageForm),
-          startDate: obj.startDate,
-          time: obj.time,
-          days: obj.days,
-        },
-      });
-      this.Notificatie(
-        "Inname moment geupdate",
-        "Het innamemoment is succesvol aangepast voor " + this.medicine.name +" !",
-        "success"
       );
     },
     Notificatie(_title, _text, _type) {
