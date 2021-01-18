@@ -7,28 +7,35 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item v-if="user.loggedIn" to="/intakelist" v-resize-text>Home</b-nav-item>
-            <b-nav-item v-if="!user.loggedIn" to="/" v-resize-text>Home</b-nav-item>
-            
+            <b-nav-item v-if="user.loggedIn" to="/intakelist" v-resize-text
+              >Home</b-nav-item
+            >
+            <b-nav-item v-if="!user.loggedIn" to="/" v-resize-text
+              >Home</b-nav-item
+            >
+
             <b-nav-item-dropdown to="/#" v-if="user.loggedIn" v-resize-text>
-              <template #button-content>
-                Mijn medicijnen
-              </template>
-              <b-dropdown-item to="/medicinelist">Medicijnen lijst</b-dropdown-item>
-              <b-dropdown-item to="/intakelist">Inname momenten</b-dropdown-item>
+              <template #button-content> Mijn medicijnen </template>
+              <b-dropdown-item to="/medicinelist"
+                >Medicijnen lijst</b-dropdown-item
+              >
+              <b-dropdown-item to="/intakelist"
+                >Inname momenten</b-dropdown-item
+              >
             </b-nav-item-dropdown>
-            </b-navbar-nav>
-            <b-navbar-nav class="ml-auto">
+          </b-navbar-nav>
+          <b-navbar-nav class="ml-auto">
             <b-nav-item-dropdown to="/#" v-resize-text>
-            <template #button-content>
-              <em>Mijn Account</em>
-            </template>
-              <b-dropdown-item v-if="user.loggedIn"><a @click.prevent="signOut"> Uitloggen</a></b-dropdown-item>
-              <b-dropdown-item v-else to="/account">Inloggen/Registreren</b-dropdown-item>
-
-
+              <template #button-content>
+                <em>Mijn Account</em>
+              </template>
+              <b-dropdown-item v-if="user.loggedIn"
+                ><a @click.prevent="signOut"> Uitloggen</a></b-dropdown-item
+              >
+              <b-dropdown-item v-else to="/account"
+                >Inloggen/Registreren</b-dropdown-item
+              >
             </b-nav-item-dropdown>
-            
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -54,12 +61,8 @@ export default {
       firebase
         .auth()
         .signOut()
-        .then(() => {
-          this.$router.replace({
-            name: "Home",
-          });
-        });
-        location.reload();
+        .then(() => {});
+      location.reload();
     },
   },
 };

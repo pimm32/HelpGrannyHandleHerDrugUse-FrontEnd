@@ -17,6 +17,13 @@
       </label>
       </div>
     </div>
+    <div v-else-if="!this.user.loggedIn" class="mt-5">
+      Het ziet er naar uit dat u bent uitgelogd
+      <br/>
+      Klik hier om opnieuw in te loggen!
+      <br/>
+      <b-button @click="$router.replace({ name: 'Home' })">Log in</b-button>
+    </div>
     <div v-else>
       <div class="card mt-5">
         Oops er gaat iets fout

@@ -1,5 +1,6 @@
 <template>
   <div id="medicine-detail" align="center">
+    <div v-if="this.medicine!=null && this.user.loggedIn">
     <h1>{{ medicine.name }}</h1>
     <b-card no-body style="max-width: 75%;">
       <b-tabs pills card vertical class="text-left">
@@ -23,6 +24,19 @@
         <!--  <b-tab title="Notities"><b-card-text>Tab contents 3</b-card-text></b-tab> -->
       </b-tabs>
     </b-card>
+    </div>
+    <div v-else-if="!this.user.loggedIn" class="mt-5">
+      Het ziet er naar uit dat u bent uitgelogd
+      <br/>
+      Klik hier om opnieuw in te loggen!
+      <br/>
+      <b-button @click="$router.replace({ name: 'Home' })">Log in</b-button>
+    </div>
+    <div v-else >
+      <div class="card mt-5">
+        Oops er gaat iets fout
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,6 +44,7 @@
 import axios from "axios";
 import NewMedicineIntake from "../components/NewMedicineIntake";
 import IntakeList from "../components/MedicineIntakesList";
+import { mapGetters } from "vuex";
 import Sideeffects from '../components/Sideeffects.vue';
 export default {
   name: "MedicinePage",
@@ -37,6 +52,12 @@ export default {
     NewMedicineIntake,
     IntakeList,
     Sideeffects,
+  },
+   computed: {
+    ...mapGetters({
+      // map `this.user` to `this.$store.getters.user`
+      user: "user",
+    }),
   },
   data() {
     return {
