@@ -50,6 +50,7 @@ export default {
               displayName: obj.gebruikersnaam,
             })
             .then(() => {});
+            this.$router.replace({ name: "dashboard" });
             this.Notificatie(
             "Account succesvol aangemaakt",
             "U account onder "+obj.email+" is succesvol aangemaakt " + obj.gebruikersnaam +" !",
@@ -90,6 +91,7 @@ export default {
           // The signed-in user info.
           // eslint-disable-next-line
           var user = result.user;
+          that.$router.replace({ name: "dashboard" });
           // ...
           that.Notificatie(
             "Succesvol ingelogd met google",
@@ -125,6 +127,7 @@ export default {
           // The signed-in user info.
           // eslint-disable-next-line
           var user = result.user;
+          that.$router.replace({ name: "dashboard" });
           // ...
           that.Notificatie(
             "Succesvol ingelogd met facebook",
