@@ -4,10 +4,16 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">Dashboard</div>
-          <div class="card-body">
-            <div v-if="user" class="alert alert-success" role="alert">U: {{user.data.displayName}}, bent ingelogd!</div>
+          <div class="card-body" v-if="user.loggedIn">
+            <div class="alert alert-success" role="alert">
+              U: {{ user.data.displayName }}, bent ingelogd!
+
+            </div>
+              <b-button @click="gaNaarHome">Home</b-button>
           </div>
-          <b-button @click="gaNaarHome">Home</b-button>
+          <div v-else class="mt-5">
+            <b-button @click="gaNaarHome">Home</b-button>
+          </div>
         </div>
       </div>
     </div>
@@ -16,23 +22,20 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  data(){
-    return{
-
-    }
+  data() {
+    return {};
   },
-      methods:{
-        gaNaarHome(){
-          this.$router.replace({ name: "intakelist" });
-        }
-      }
-    
-  ,
+  methods: {
+    gaNaarHome() {
+      this.$router.replace({ name: "intakelist" });
+    },
+  },
+
   computed: {
     // map `this.user` to `this.$store.getters.user`
     ...mapGetters({
-      user: "user"
-    })
-  }
+      user: "user",
+    }),
+  },
 };
 </script>
