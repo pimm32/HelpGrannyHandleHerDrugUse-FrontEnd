@@ -8,6 +8,13 @@
           v-on:weekly-intake="AddWeeklyIntake"
         />
       </div>
+      <div class="card mt-5">
+      <label>
+        Rood betekend dat u dat medicijn vergeten bent in te nemen! <br/>
+        Oranje betekend dat u dat medicijn vandaag in dient te nemen! <br/>
+        Blauw betekend dat u dat medicijn in de toekomst pas in dient te nemen!
+      </label>
+      </div>
     </div>
     <div v-else>
       <div class="card mt-5">
