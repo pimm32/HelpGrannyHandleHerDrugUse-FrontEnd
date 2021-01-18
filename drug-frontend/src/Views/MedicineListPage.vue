@@ -50,7 +50,6 @@ export default {
   methods: {
     AddNewMed(newMed) {
       this.medicineList = [...this.medicineList, newMed];
-      console.log(this.user.data.uid);
       axios({
         method: "post",
         url: "https://i338995core.venus.fhict.nl/Medicine/",
@@ -80,7 +79,6 @@ export default {
     },
 
     InspectMedicine(obj) {
-      console.log(obj);
       this.$router.push({ name: "MedicineDetail", params: { medicine: obj } });
     },
     Notificatie(_title, _text, _type) {
@@ -108,7 +106,7 @@ export default {
     }
   },
   updated() {
-    if (this.user.data && !this.listFilled) {
+    if ((this.user.data && !this.listFilled)) {
       axios
         .get(
           "https://i338995core.venus.fhict.nl/Medicine/GetAllByAccountId/" +

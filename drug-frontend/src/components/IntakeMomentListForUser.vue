@@ -60,13 +60,11 @@ export default {
     },
     VerifyIntake: function(obj){
       this.intakeList.splice(this.intakeList.indexOf(obj), 1);
-        console.log("intake verified" );
         this.showWeeklyIntakeModalVerification(obj);
         this.$emit("verify-intake", obj);
     },
     addWeeklyIntake: function(obj){
       this.intakeList = [...this.intakeList, obj];
-        console.log("added weekly intake");
         this.$emit("weekly-intake", obj);
     },
     showWeeklyIntakeModalVerification: function(obj) {

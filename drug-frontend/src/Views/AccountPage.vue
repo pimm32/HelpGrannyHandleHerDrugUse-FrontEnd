@@ -58,16 +58,7 @@ export default {
         })
         .catch((err) => {
           this.error = err.message;
-        }); /*
-      axios({
-        method: "post",
-        url: "https://i338995core.venus.fhict.nl/account/",
-        data: {
-          name: obj.gebruikersnaam,
-          password: obj.wachtwoord,
-          email: obj.email,
-        },
-      });*/
+        }); 
     },
     Inloggen(obj) {
       firebase
@@ -81,7 +72,6 @@ export default {
             "U bent succesvol ingelogd " + data.user.displayName,
             "success"
           );
-          console.log(data.user.displayName);
         })
         .catch((err) => {
           this.error = err.message;
