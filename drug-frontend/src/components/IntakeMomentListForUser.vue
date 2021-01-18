@@ -35,7 +35,7 @@ export default {
       fields:[
         {key: "dosage", label: "Dosering"},
         {key: "medicineName", label: "Med naam"},
-        { key: "date", label: "Datum", sortable :"true" },
+        { key: "date", label: "Datum" },
         {key: "time", label: "Tijd"},
         {key: "verify", label: "Afronden"},
 
