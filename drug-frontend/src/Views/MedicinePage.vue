@@ -78,8 +78,10 @@ export default {
   },
   methods: {
     addIntakemoment(obj) {
-      this.intakeMoments = [...this.intakeMoments, obj];
-      console.log(obj);
+      this.intakeMoments = [...this.intakeMoments, {medId: this.medicine.id,
+          frequency: obj.frequency,
+          dosage: (obj.dosage + " " + obj.dosageForm),
+          startDate: obj.startDate + "T"+ obj.time}];
       axios({
         method: "post",
         url: "https://i338995core.venus.fhict.nl/intakemoment",

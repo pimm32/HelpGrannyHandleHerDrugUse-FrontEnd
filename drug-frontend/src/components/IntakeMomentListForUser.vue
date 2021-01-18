@@ -31,7 +31,7 @@ export default {
   },
   data(){
     return{
-      sort:"date",
+      sort:"startDate",
       fields:[
         {key: "dosage", label: "Dosering"},
         {key: "medicineName", label: "Med naam"},
@@ -49,13 +49,13 @@ export default {
       }
       let date = new Date(obj.startDate); 
       let currentDate = new Date();
-      if(date.toLocaleString() < currentDate.toLocaleString() ){
+      if(date.toISOString() < currentDate.toISOString() ){
         return "table-danger"
       }
       if(date.toLocaleDateString() === currentDate.toLocaleDateString() ){
         return "table-warning"
       }
-      if(date.toLocaleString() > currentDate.toLocaleString() ){
+      if(date.toISOString() > currentDate.toISOString() ){
         return "table-info"
       }
     },

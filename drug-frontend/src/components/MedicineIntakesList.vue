@@ -1,5 +1,6 @@
 <template>
-  <div class="responsive-table">
+  <div class="responsive-table">\
+    {{intakeList}}
     
     <h2 class="card-header">Inneem momenten</h2>
     <b-table

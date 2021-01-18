@@ -41,6 +41,7 @@ export default {
   },
   methods: {
     CreateAccount(obj) {
+      var that = this;
       firebase
         .auth()
         .createUserWithEmailAndPassword(obj.email, obj.wachtwoord)
@@ -50,8 +51,8 @@ export default {
               displayName: obj.gebruikersnaam,
             })
             .then(() => {});
-            this.$router.replace({ name: "dashboard" });
-            this.Notificatie(
+            that.$router.replace({ name: "dashboard" });
+            that.Notificatie(
             "Account succesvol aangemaakt",
             "U account onder "+obj.email+" is succesvol aangemaakt " + obj.gebruikersnaam +" !",
             "success"
@@ -62,13 +63,14 @@ export default {
         }); 
     },
     Inloggen(obj) {
+      var that = this;
       firebase
         .auth()
         .signInWithEmailAndPassword(obj.email, obj.wachtwoord)
 
         .then((data) => {
-          this.$router.replace({ name: "dashboard" });
-          this.Notificatie(
+          that.$router.replace({ name: "dashboard" });
+          that.Notificatie(
             "Succesvol ingelogd met email en wachtwoord",
             "U bent succesvol ingelogd " + data.user.displayName,
             "success"
