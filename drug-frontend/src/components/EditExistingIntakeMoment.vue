@@ -104,7 +104,6 @@
     methods:{
        onChange() {
          if (this.form.frequency == 2) {
-           console.log(this.form.frequency)
            this.personalised = true;
          }
          else{

@@ -50,6 +50,7 @@ export default {
               displayName: obj.gebruikersnaam,
             })
             .then(() => {});
+            this.$router.replace({ name: "dashboard" });
             this.Notificatie(
             "Account succesvol aangemaakt",
             "U account onder "+obj.email+" is succesvol aangemaakt " + obj.gebruikersnaam +" !",
@@ -58,16 +59,7 @@ export default {
         })
         .catch((err) => {
           this.error = err.message;
-        }); /*
-      axios({
-        method: "post",
-        url: "https://i338995core.venus.fhict.nl/account/",
-        data: {
-          name: obj.gebruikersnaam,
-          password: obj.wachtwoord,
-          email: obj.email,
-        },
-      });*/
+        }); 
     },
     Inloggen(obj) {
       firebase
@@ -81,7 +73,6 @@ export default {
             "U bent succesvol ingelogd " + data.user.displayName,
             "success"
           );
-          console.log(data.user.displayName);
         })
         .catch((err) => {
           this.error = err.message;
@@ -100,6 +91,7 @@ export default {
           // The signed-in user info.
           // eslint-disable-next-line
           var user = result.user;
+          that.$router.replace({ name: "dashboard" });
           // ...
           that.Notificatie(
             "Succesvol ingelogd met google",
@@ -135,6 +127,7 @@ export default {
           // The signed-in user info.
           // eslint-disable-next-line
           var user = result.user;
+          that.$router.replace({ name: "dashboard" });
           // ...
           that.Notificatie(
             "Succesvol ingelogd met facebook",

@@ -1,15 +1,20 @@
 <template>
   <div id="app">
-    <AddNewMedicine  v-on:add-medicine="AddNewMed" />
+    <div v-if="this.user.data">
+    <AddNewMedicine v-on:add-medicine="AddNewMed" />
     <div class="container mt-5">
       <div class="card mt-5">
         <MedicineList
-        ref="medList"
+          ref="medList"
           v-bind:medicineList="medicineList"
           v-on:inspect-medicine="InspectMedicine"
           v-on:del-medicine="DeleteMed"
         />
       </div>
+    </div>
+    </div>
+    <div v-else>
+      Oops er gaat iets fout
     </div>
   </div>
 </template>
@@ -33,6 +38,7 @@ export default {
     return {
       rendered: true,
       medicineList: [],
+      listFilled: false,
     };
   },
   computed: {
@@ -43,14 +49,14 @@ export default {
   },
   methods: {
     AddNewMed(newMed) {
-      console.log(this.user.data.uid);
+      this.medicineList = [...this.medicineList, newMed];
       axios({
         method: "post",
         url: "https://i338995core.venus.fhict.nl/Medicine/",
         data: {
           name: newMed.name,
           description: newMed.description,
-          UID : this.user.data.uid, 
+          UID: this.user.data.uid,
         },
       }).then((res) => (this.medicineList, [...this.medicineList, res.data]));
       this.Notificatie(
@@ -60,6 +66,7 @@ export default {
       );
     },
     DeleteMed(obj) {
+      this.medicineList.splice(this.medicineList.indexOf(obj), 1);
       axios({
         method: "delete",
         url: "https://i338995core.venus.fhict.nl/Medicine/" + obj.id,
@@ -71,11 +78,8 @@ export default {
       );
     },
 
-
     InspectMedicine(obj) {
-      console.log(obj)
-      this.$router.push({ name: "MedicineDetail", params: { medicine : obj } });
-      
+      this.$router.push({ name: "MedicineDetail", params: { medicine: obj } });
     },
     Notificatie(_title, _text, _type) {
       this.$notify({
@@ -83,19 +87,37 @@ export default {
         title: _title,
         text: _text,
         duration: 10000,
-        type: _type
-        
+        type: _type,
       });
     },
   },
   // THIS CODE RUNS WHEN A NEW VUE INSTANCE IS CREATED (AKA WHEN THE TABLE IS CALLED FIRST)
   mounted() {
-    axios
-      .get("https://i338995core.venus.fhict.nl/Medicine/GetAllByAccountId/" + this.user.data.uid)
-      .then((res) => (this.medicineList = res.data))
-      .catch((err) => console.log(err));
+    if (this.user.data) {
+      axios
+        .get(
+          "https://i338995core.venus.fhict.nl/Medicine/GetAllByAccountId/" +
+            this.user.data.uid
+        )
+        .then(
+          (res) => ((this.medicineList = res.data), (this.listFilled = true))
+        )
+        .catch((err) => console.log(err));
+    }
   },
-  
+  updated() {
+    if ((this.user.data && !this.listFilled)) {
+      axios
+        .get(
+          "https://i338995core.venus.fhict.nl/Medicine/GetAllByAccountId/" +
+            this.user.data.uid
+        )
+        .then(
+          (res) => ((this.medicineList = res.data), (this.listFilled = true))
+        )
+        .catch((err) => console.log(err));
+    }
+  },
 };
 </script>
 

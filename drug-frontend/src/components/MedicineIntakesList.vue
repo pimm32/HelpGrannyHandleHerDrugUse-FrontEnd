@@ -16,18 +16,7 @@
       <template v-slot:cell(time)="row">
         {{ row.item.startDate.substring(row.item.startDate.indexOf("T") + 1) }}
       </template>
-
-      <template v-slot:cell(edit)="row">
-        <b-button
-          size="sm"
-          variant="info"
-          @click="edit(row.item, $event.target)"
-          class="btn btn-primary"
-        >
-          Aanpassen
-        </b-button>
-        
-      </template>
+      
       <template v-slot:cell(delete)="row">
         <b-button
           class="btn"
@@ -41,22 +30,18 @@
         </b-button>
       </template>
     </b-table>
-    
-    <EditExistingIntakeMoment  v-on:edit-intakemoment="edit2" v-bind:intakemoment="editableIntake"/>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
 import VueResizeText from "vue-resize-text";
-import EditExistingIntakeMoment from "./EditExistingIntakeMoment";
 Vue.use(VueResizeText);
 
 export default {
   name: "IntakeList",
   props: ["intakeList"],
   components: {
-    EditExistingIntakeMoment,
   },
   data() {
     return {
@@ -67,7 +52,6 @@ export default {
         { key: "frequency", label: "Herhaling" },
         { key: "date", label: "Datum" },
         { key: "time", label: "Tijd" },
-        { key: "edit", label: "Aanpassen" },
         { key: "delete", label: "Verwijderen" },
       ],
     };
